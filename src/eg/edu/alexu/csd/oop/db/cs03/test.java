@@ -24,7 +24,7 @@ public class test {
 		Command c1 = new DropDatabase( "PoliceStation" );
 		Command c2 = new CreateTable("NewTable", "PoliceStation", arraylist);
 		Command c3 = new DropTable("NewTable", "PoliceStation");
-		CommandUpdate c4 = new InsertTable("NewTable", "PoliceStation", arraylist1);
+		CommandUpdate c4 = new InsertTable("PoliceStation", "NewTable", arraylist1);
 		
 		c.execute();
 		

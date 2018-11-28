@@ -16,6 +16,12 @@ public class CreateDatabase implements Command {
 
 	@Override
 	public void execute() {
+		dir = new File (path);
+		
+		if (!dir.exists()) {
+			dir.mkdirs();
+		}
+		
 		dir = new File (path + this.databaseName);
 		
 		if (!dir.exists()) {
