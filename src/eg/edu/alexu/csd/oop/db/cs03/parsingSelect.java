@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class parsingSelect {
-	
+	 
 	private String query ;
 	private String order ;
 	private String tableName;

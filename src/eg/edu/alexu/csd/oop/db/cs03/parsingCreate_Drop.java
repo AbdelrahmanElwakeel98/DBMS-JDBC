@@ -37,7 +37,7 @@ public class parsingCreate_Drop {
 	      // Now create matcher object.
 	      Matcher m = r.matcher(this.query);
 	      if (m.find()) {
-	    	  order = "create";
+	    	  order = "create"; 
 	    	  executeOn = "database";
 	    	  name = m.group(5);
 	          return true;

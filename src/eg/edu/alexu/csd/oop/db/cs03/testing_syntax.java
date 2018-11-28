@@ -18,7 +18,7 @@ public class testing_syntax {
 	      Matcher m = r.matcher(line);
 	      if (m.find()) {
 	      System.out.println(m.group(0));
-}
+} 
 	}
    void create_database() {
 	      String line = "Create dataBASE jk_f8j" ;		  

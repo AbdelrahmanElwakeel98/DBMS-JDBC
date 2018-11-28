@@ -10,7 +10,7 @@ public class IHolder {
 		this.fieldNames = fieldNames;
 		this.dataTypes = dataTypes;
 	}
-	
+	 
 	public String getFieldNames() {
 		return this.fieldNames;
 	}
