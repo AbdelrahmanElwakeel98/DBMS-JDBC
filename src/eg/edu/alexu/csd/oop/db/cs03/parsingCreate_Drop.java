@@ -93,10 +93,14 @@ public class parsingCreate_Drop {
 	    	  executeOn = "table";
 	    	  name = m.group(3);	    	  
 	    	  String[] attr = this.query.trim().split("\\(");
-	    	  String[] attr1 = attr[1].trim().split(","); 
+	    	  String[] attr3 = attr[1].trim().split("\\)");
+	    	  String[] attr1 = attr3[0].trim().split(","); 
+	    	  
 	    	  for (int i = 0; i < attr1.length; i++) {
 	    		  String[] attr2 = attr1[i].trim().split("\\s+");
+	    		  
 				tableDetails.add(new IHolder(attr2[0], attr2[1]));
+				  System.out.println(attr2[1]);
 	    	  }
 	      
 	          return true;
