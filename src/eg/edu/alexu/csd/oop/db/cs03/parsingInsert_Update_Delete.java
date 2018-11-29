@@ -59,56 +59,26 @@ public class parsingInsert_Update_Delete {
 	}
 	
 	public boolean check2()	{
-		 String pattern = "^(?i)(UPDATE)\\s+(\\w*+)\\s+(SET)+\\s+((\\w*+)(=)+(\\d|(')+(\\w*+)('))+(,)\\s)*+"
-		  	     	+ "(\\w*+)(=)+(\\d|(')+(\\w*+)('))\\s*+(WHERE)\\s+(\\w*+)((?:[<|>|=]))(\\d|(')(\\w*+)('))$";
+		 String pattern = "^\\s*+(?i)(UPDATE)+\\s*+(\\w*+)\\s*+(SET)+\\s*+((\\w*+)\\s*+(=)+\\s*+(\\d|(')+(\\w*+)('))+\\s*+(,)\\s*)*+"
+		  	     	+ "(\\w*+)\\s*+(=)+\\s*+(\\d|(')+(\\w*+)('))+\\s*+(WHERE)+\\s*+(\\w*+)\\s*+((?:[<|>|=]))+\\s*+(\\d|(')(\\w*+)('))\\s*$";
 	      // Create a Pattern object
 	      Pattern r = Pattern.compile(pattern);
 	      // Now create matcher object.
 	      Matcher m = r.matcher(this.query);
 	      if (m.find()) {
-	    	  order = "update";
-	    	  tableName = m.group(2);
-	  		  conditionColumn = m.group(19);
-	  		  conditionSign = m.group(20);
-	  		  conditionValue = m.group(21);
-	    	  String[] spliter,spliterr;
-	    	  String helper,helperr ;
-	          String[] attr = this.query.split(",");
-	          helper = null;
-	          spliter = new String[attr.length];
-	          helperr = null;
-	          spliterr = new String[attr.length];
-	          for (int i = 0; i < attr.length; i ++) {
-	              String[] attributes = attr[i].split("=");
-	              if(i==0 && i!=attr.length-1) {
-	            	  helper = attributes[0].trim().toLowerCase();
-	            	  spliter=helper.trim().split("\\s");
-	            	  tableDetails.add(new IHolder(spliter[3].trim(),attributes[1].trim()));
-	            	  //fieldNames.add(spliter[3].trim()) ; 
-		              //valuesArgs.add(attributes[1].trim());
-	              }
-	              else if(i==attr.length-1 && i!=0) {
-	            	  //fieldNames.add(attributes[0].trim().toLowerCase());
-	            	  helper = attributes[1].trim();
-	            	  spliter=helper.trim().split("\\s"); 
-		              //valuesArgs.add(spliter[0].trim());
-		              tableDetails.add(new IHolder(attributes[0].trim().toLowerCase(),spliter[0].trim()));
-	              }
-	              else if(i==attr.length-1 && i==0) {
-	            	  helper = attributes[0].trim().toLowerCase();
-	            	  spliter=helper.trim().split("\\s");
-	            	  //fieldNames.add(spliter[3].trim()) ;
-	            	  helperr = attributes[1].trim();
-	            	  spliterr=helperr.trim().split("\\s"); 
-		              //valuesArgs.add(spliterr[0].trim());
-		              tableDetails.add(new IHolder(spliter[3].trim(),spliterr[0].trim()));
-	              }
-	              else {
-	            	  tableDetails.add(new IHolder(attributes[0].trim().toLowerCase(),attributes[1].trim()));
-	            	  //fieldNames.add(attributes[0].trim().toLowerCase());
-		              //valuesArgs.add(attributes[1].trim());
-	              }
-	          }
+	    	  String[] attr = this.query.trim().split("SET");
+	    	  String[] attr3 = attr[1].trim().split("WHERE");
+	    	  String[] attr1 = attr3[0].trim().split(","); 
+	    	  String withoutS1 = null ;
+	    	  String withoutS2 = null ;
+	    	  for (int i = 0; i < attr1.length; i++) {
+	    		  String[] attr2 = attr1[i].trim().split("=");
+	    		  withoutS1=attr2[0].replaceAll(" ", "");
+	    		  withoutS2=attr2[1].replaceAll(" ", "");
+				tableDetails.add(new IHolder(withoutS1, withoutS2));
+				  
+	      }
+	      
 	       
 	          return true;
 	      }	
@@ -118,9 +88,9 @@ public class parsingInsert_Update_Delete {
 	}
 	
 	public boolean check3()	{
-	      String pattern = "^(?i)\\s*(INSERT)\\s+(INTO)\\s+"
-	      		+ "(\\w*+)\\s*(\\()\\s*((\\w*+)\\s*(,)\\s*)*\\w+\\s*(\\))\\s+"
-	      		+ "(VALUES)\\s*(\\()+((\\d|(')+(\\w*+)('))+(,)\\s)*+(\\d|((')+(\\w*+)(')))+(\\))$";
+		 String pattern = "^\\s*+(?i)(INSERT)\\s*+(INTO)+(\\s*)+(\\w*+)\\s*(\\()+\\s*+((\\w*+)\\s*(,)\\s*)*+(\\w*+)\\s*(\\))\\s*+"
+			  		+ "(?i)(VALUES)\\s*+(\\()\\s*+((\\d|(')+"
+			  		+ "(\\w*+)('))+\\s*(,)\\s*)*+(\\d|((')+(\\w*+)(')))+\\s*+(\\))\\s*$";
 	      // Create a Pattern object
 	      Pattern r = Pattern.compile(pattern);
 	      // Now create matcher object.
@@ -128,53 +98,25 @@ public class parsingInsert_Update_Delete {
 	      if (m.find()) {
 	    	  order = "insert";
 	    	  tableName = m.group(3);
-	    	  String[] spliter,spliterr;
-	    	  String helper,helperr;
-	    	  helper = null;
-	    	  helperr = null;
-	          String[] fields = this.query.trim().split(",");
-	          spliter = new String[fields.length];
-	          spliterr = new String[fields.length];
-	          for (int i = 0; i < fields.length; i++) {
-	        	  if(i==0&&i!=(fields.length-1)/2) {
-	        		  helper = fields[0].trim().toLowerCase();
-	            	  spliter=helper.trim().split("\\(");
-	        		  value.add(spliter[1].trim().toLowerCase()); 
-	        	  }
-	        	  else if(i==(fields.length-1)/2&&i!=0) {
-	        		  helper = fields[(fields.length-1)/2].trim().toLowerCase();
-	            	  spliter=helper.trim().split("\\)");
-	        		  value.add(spliter[0].trim().toLowerCase());
-	        		  helper = fields[(fields.length-1)/2].trim().toLowerCase();
-	            	  spliter=helper.trim().split("\\(");
-	        		  value1.add(spliter[1].trim().toLowerCase()); 
-	        	  }
-	        	  else if(i==(fields.length-1)/2&&i==0) {
-	        		  helper = fields[0].trim().toLowerCase();
-	            	  spliter=helper.trim().split("\\)");
-	            	  helperr=spliter[0].trim().toLowerCase();
-	            	  spliterr=helperr.trim().split("\\(");
-	        		  value.add(spliterr[1].trim().toLowerCase());
-	        		  helper = fields[0].trim().toLowerCase();
-	            	  spliter=helper.trim().split("\\(");
-	            	  helperr=spliter[2].trim().toLowerCase();
-	            	  spliterr=helperr.trim().split("\\)");
-	        		  value1.add(spliterr[0].trim().toLowerCase()); 
-	        	  }
-	        	  else if(i==fields.length-1) {
-	        		  helper = fields[fields.length-1].trim().toLowerCase();
-	            	  spliter=helper.trim().split("\\)");
-	        		  value1.add(spliter[0].trim().toLowerCase());
-	        	  }
-	        	  else if(i>0&&i<(fields.length-1)/2) {
-	        		  value.add(fields[i].trim().toLowerCase());
-	        	  }
-	        	  else if(i>(fields.length-1)/2&&i<fields.length-1){
-	        		  value1.add(fields[i].trim().toLowerCase());
-	        	  }
-	        	 
-	          }
-	          for(int i=0 ; i<=(fields.length-1)/2 ; i++) {
+	    	  String[] attr = this.query.trim().split("\\(");
+	    	  String[] attr3 = attr[1].trim().split("\\)");
+	    	  String[] attr1 = attr3[0].trim().split(",");
+	    	  String[] attr4 = attr3[0].trim().split(",");
+	    	  String withoutS1 = null ;
+	    	  for (int i = 0; i < attr1.length; i++) { 
+	    		  withoutS1=attr1[i].replaceAll(" ", "");
+				  value.add(withoutS1);
+	    	  }
+	    	  attr = this.query.trim().split("VALUES");
+	    	  attr4 = attr[1].trim().split("\\(");
+	    	  attr3 = attr4[1].trim().split("\\)");
+	    	  attr1 = attr3[0].trim().split(",");
+	    	  for (int i = 0; i < attr1.length; i++) { 
+	    		  withoutS1=attr1[i].replaceAll(" ", "");
+	    		  value1.add(withoutS1);
+	    	  }
+
+	          for(int i=0 ; i<attr1.length; i++) {
 	        	  tableDetails.add(new IHolder(value.get(i), value1.get(i)));
 	          }
 	          return true;

@@ -8,54 +8,59 @@ import java.util.regex.Pattern;
 public class testing_syntax {
 
 	public static void main(String[] args) {
-		  
-	      String line = "Create TABLE table_name1(column_name1 varchar, mero int, mrmero int, merna varchar, habal int)" ;		  
-	      String pattern = "^(?i)\\s*(CREATE)\\s(TABLE)\\s(\\w+)\\s*+"
-	      		+ "(\\()\\s*(\\w+\\s+(varchar|int)\\s*(,)\\s*)*(\\w+\\s+(varchar|int)\\s*)"
-	      		+ "(\\))\\s*(;)?\\s*$";  
-	      // Create a Pattern object
-	      Pattern r = Pattern.compile(pattern);
-	      // Now create matcher object.
-	      Matcher m = r.matcher(line);
-	      if (m.find()) {
-	    	  ArrayList<String> fieldNames = new ArrayList< String>(),dataTypes = new ArrayList< String>();
-	    	  String[] spliter;
-	    	  String helper ;
-			  String[] columns = line.split(",");
-	          helper = null;
-	          spliter = new String[columns.length];
-	          for (int i = 0; i < columns.length; i++) {
-	        	  String[] attr = columns[i].trim().split("\\s+");
-	              if(i==0&&i!=columns.length-1) {
-	            	  helper = attr[2].trim();
-	            	  spliter=helper.trim().split("\\(");
-	            	  fieldNames.add(spliter[1].trim()) ;
-		              dataTypes.add(attr[3].trim());  
-	              }
-	              else if(i==columns.length-1&&i!=0) {
-	            	  helper = attr[1].trim();
-	            	  spliter=helper.trim().split("\\)");
-	            	  dataTypes.add(spliter[0].trim());
-	            	  fieldNames.add(attr[0].trim());   
-	              }
-	              else if(i==0 && i==columns.length-1 ) {
-	            	  helper = attr[2].trim();
-	            	  spliter=helper.trim().split("\\(");
-	            	  fieldNames.add(spliter[1].trim());
-	            	  helper = attr[3].trim();
-	            	  spliter=helper.trim().split("\\)");
-	            	  dataTypes.add(spliter[0].trim());
-	            	  
-	              }
-	              else {
-	                  fieldNames.add(attr[0].trim());
-	                  dataTypes.add(attr[1].trim());
-	              }
-	          }
-	      System.out.println(dataTypes.get(4));
+		ArrayList<IHolder> tableDetails = new ArrayList<>();
+		String line = "INSERT INTO table_name1(column_NAME1,COLUMN_name3,"
+   		        + "column_name2)VALUES('value1','value3',4) " ;		  
+	  String pattern = "^\\s*+(?i)(INSERT)\\s*+(INTO)+(\\s*)+(\\w*+)\\s*(\\()+\\s*+((\\w*+)\\s*(,)\\s*)*+(\\w*+)\\s*(\\))\\s*+"
+	  		+ "(?i)(VALUES)\\s*+(\\()\\s*+((\\d|(')+"
+	  		+ "(\\w*+)('))+\\s*(,)\\s*)*+(\\d|((')+(\\w*+)(')))+\\s*+(\\))\\s*$";
+      // Create a Pattern object
+      Pattern r = Pattern.compile(pattern);
+      // Now create matcher object.
+      Matcher m = r.matcher(line);
+      if (m.find()) {
+    	  String[] attr = line.trim().split("\\(");
+    	  String[] attr3 = attr[1].trim().split("\\)");
+    	  String[] attr1 = attr3[0].trim().split(",");
+    	  String[] attr4 = attr3[0].trim().split(",");
+    	  String withoutS1 = null ;
+    	  for (int i = 0; i < attr1.length; i++) { 
+    		  withoutS1=attr1[i].replaceAll(" ", "");
+			  System.out.println(withoutS1);
+    	  }
+    	  attr = line.trim().split("VALUES");
+    	  attr4 = attr[1].trim().split("\\(");
+    	  attr3 = attr4[1].trim().split("\\)");
+    	  attr1 = attr3[0].trim().split(",");
+    	  for (int i = 0; i < attr1.length; i++) { 
+    		  withoutS1=attr1[i].replaceAll(" ", "");
+			  System.out.println(withoutS1);
+    	  }
+
+    
+		/* String line = "    UPDATE    table_name1        SET    column_name1    =   '11111111'  ,  hh    =     '1111'       WHERE    coLUmn_NAME2   =   8   " ;		  
+		   String pattern = "^\\s*+(?i)(UPDATE)+\\s*+(\\w*+)\\s*+(SET)+\\s*+((\\w*+)\\s*+(=)+\\s*+(\\d|(')+(\\w*+)('))+\\s*+(,)\\s*)*+"
+			  	     	+ "(\\w*+)\\s*+(=)+\\s*+(\\d|(')+(\\w*+)('))+\\s*+(WHERE)+\\s*+(\\w*+)\\s*+((?:[<|>|=]))+\\s*+(\\d|(')(\\w*+)('))\\s*$";
+		      // Create a Pattern object
+		      Pattern r = Pattern.compile(pattern);
+		      // Now create matcher object.
+		      Matcher m = r.matcher(line);
+		      if (m.find()) {
+		    	  String[] attr = line.trim().split("SET");
+		    	  String[] attr1 = attr[1].trim().split(","); 
+		    	  for (int i = 0; i < attr1.length; i++) {
+		    		  String[] attr2 = attr1[i].trim().split("=");
+					tableDetails.add(new IHolder(attr2[0], attr2[1]));
+					   System.out.println(attr2[1]);
+		    	  }
+		      
+		      */
+		       
+		      }	
+		
 	      
 } 
-	}
+	
    void create_database() {
 	      String line = "Create dataBASE jk_f8j" ;		  
 	      String pattern = "^(?i)(CREATE)+(\\s)+(?i)(DATABASE)+(\\s)+(\\w*+)$";
