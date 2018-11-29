@@ -14,7 +14,18 @@ public class IDatabase implements Database {
 
 	@Override
 	public boolean executeStructureQuery(String query) throws SQLException {
-		// TODO Auto-generated method stub
+		parsingCreate_Drop parse = new parsingCreate_Drop(query);
+		
+		if (parse.validity()) {
+			
+			
+			
+		} else {
+			
+			throw new SQLException ("Failed to parse query with extra spaces");
+			
+		}
+		
 		return false;
 	}
 

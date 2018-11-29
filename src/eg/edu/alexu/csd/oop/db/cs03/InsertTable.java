@@ -1,6 +1,7 @@
 package eg.edu.alexu.csd.oop.db.cs03;
 
 import java.io.File;
+
 import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -13,9 +14,10 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import eg.edu.alexu.csd.oop.db.CommandUpdate;
+import eg.edu.alexu.csd.oop.db.Command;
 
-public class InsertTable implements CommandUpdate {
+
+public class InsertTable implements Command {
 
 	private String databaseName;
 	private String tableName;
@@ -28,7 +30,7 @@ public class InsertTable implements CommandUpdate {
 	}
 
 	@Override
-	public void execute() {
+	public Object execute() {
 
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder;
@@ -61,6 +63,8 @@ public class InsertTable implements CommandUpdate {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		return true;
 
 	}
 
@@ -71,10 +75,6 @@ public class InsertTable implements CommandUpdate {
 		return col;
 	}
 
-	@Override
-	public int getNumRow() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	
 
 }

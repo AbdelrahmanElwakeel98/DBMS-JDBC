@@ -13,7 +13,6 @@ public class CreateTable implements Command {
 	private String tableName;
 	private String databaseName;
 	private ArrayList<IHolder> cols;
-	private String path = "DataBases/";
 	private File dir;
 	
 	public CreateTable (String tableName, String databaseName, ArrayList<IHolder> cols) {
@@ -23,11 +22,11 @@ public class CreateTable implements Command {
 	}
 
 	@Override
-	public void execute() {
-		dir = new File(path + databaseName);
+	public Object execute() {
+		dir = new File(databaseName);
 		if (dir.exists()) {
-			File file1 = new File (path + databaseName + "/" + tableName + ".xml");
-			File file2 = new File (path + databaseName + "/" + tableName + ".DTD"); 
+			File file1 = new File (databaseName +  System.getProperty("file.separator") + tableName + ".xml");
+			File file2 = new File (databaseName + System.getProperty("file.separator") + tableName + ".DTD"); 
 			if (!file1.exists() && !file2.exists()) {
 				try {
 					file1.createNewFile();
@@ -37,7 +36,12 @@ public class CreateTable implements Command {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				return true;
+			} else {
+				return false;
 			}
+		} else {
+			return false;
 		}
 		
 	}

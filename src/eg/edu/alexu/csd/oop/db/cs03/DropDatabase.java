@@ -7,7 +7,7 @@ import eg.edu.alexu.csd.oop.db.Command;
 public class DropDatabase implements Command {
 	
 	private String databaseName;
-	private String path = "DataBases/";
+	private String path = "DataBases" + System.getProperty("file.separator");
 	private File dir;
 	
 	public DropDatabase (String databaseName) {
@@ -15,7 +15,7 @@ public class DropDatabase implements Command {
 	}
 
 	@Override
-	public void execute() {
+	public Object execute() {
 		dir = new File(path + databaseName);
 		String[] entries = dir.list();
 		
@@ -25,6 +25,9 @@ public class DropDatabase implements Command {
 				currentFile.delete();
 			}
 			dir.delete();
+			return true;
+		} else {
+			return false;
 		}
 		
 	}
