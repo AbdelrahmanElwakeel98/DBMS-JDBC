@@ -8,16 +8,52 @@ import java.util.regex.Pattern;
 public class testing_syntax {
 
 	public static void main(String[] args) {
-		 String line = "INSERT INTO table_name1(column_NAME1, COLUMN_name3, column_name2) VALUES ('value1', 'value3', 4)" ;		  
-		  String pattern = "^(?i)\\s*(INSERT)\\s+(INTO)\\s+(\\w*+)\\s*(\\()\\s*((\\w*+)"
-		  		+ "\\s*(,)\\s*)*(\\w*+)\\s*(\\))\\s+(VALUES)\\s*(\\()+((\\d|(')+(\\w*+)('))+(,)\\s)*+"
-		  		+ "(\\d|((')+(\\w*+)(')))+(\\))$";
+		  
+	      String line = "Create TABLE table_name1(column_name1 varchar, mero int, mrmero int, merna varchar, habal int)" ;		  
+	      String pattern = "^(?i)\\s*(CREATE)\\s(TABLE)\\s(\\w+)\\s*+"
+	      		+ "(\\()\\s*(\\w+\\s+(varchar|int)\\s*(,)\\s*)*(\\w+\\s+(varchar|int)\\s*)"
+	      		+ "(\\))\\s*(;)?\\s*$";  
 	      // Create a Pattern object
 	      Pattern r = Pattern.compile(pattern);
 	      // Now create matcher object.
 	      Matcher m = r.matcher(line);
 	      if (m.find()) {
-	      System.out.println(m.group(0));
+	    	  ArrayList<String> fieldNames = new ArrayList< String>(),dataTypes = new ArrayList< String>();
+	    	  String[] spliter;
+	    	  String helper ;
+			  String[] columns = line.split(",");
+	          helper = null;
+	          spliter = new String[columns.length];
+	          for (int i = 0; i < columns.length; i++) {
+	        	  String[] attr = columns[i].trim().split("\\s+");
+	              if(i==0&&i!=columns.length-1) {
+	            	  helper = attr[2].trim();
+	            	  spliter=helper.trim().split("\\(");
+	            	  fieldNames.add(spliter[1].trim()) ;
+		              dataTypes.add(attr[3].trim());  
+	              }
+	              else if(i==columns.length-1&&i!=0) {
+	            	  helper = attr[1].trim();
+	            	  spliter=helper.trim().split("\\)");
+	            	  dataTypes.add(spliter[0].trim());
+	            	  fieldNames.add(attr[0].trim());   
+	              }
+	              else if(i==0 && i==columns.length-1 ) {
+	            	  helper = attr[2].trim();
+	            	  spliter=helper.trim().split("\\(");
+	            	  fieldNames.add(spliter[1].trim());
+	            	  helper = attr[3].trim();
+	            	  spliter=helper.trim().split("\\)");
+	            	  dataTypes.add(spliter[0].trim());
+	            	  
+	              }
+	              else {
+	                  fieldNames.add(attr[0].trim());
+	                  dataTypes.add(attr[1].trim());
+	              }
+	          }
+	      System.out.println(dataTypes.get(4));
+	      
 } 
 	}
    void create_database() {

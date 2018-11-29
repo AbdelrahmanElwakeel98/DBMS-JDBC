@@ -128,24 +128,38 @@ public class parsingInsert_Update_Delete {
 	      if (m.find()) {
 	    	  order = "insert";
 	    	  tableName = m.group(3);
-	    	  String[] spliter;
-	    	  String helper;
+	    	  String[] spliter,spliterr;
+	    	  String helper,helperr;
 	    	  helper = null;
+	    	  helperr = null;
 	          String[] fields = this.query.trim().split(",");
 	          spliter = new String[fields.length];
+	          spliterr = new String[fields.length];
 	          for (int i = 0; i < fields.length; i++) {
-	        	  if(i==0) {
+	        	  if(i==0&&i!=(fields.length-1)/2) {
 	        		  helper = fields[0].trim().toLowerCase();
 	            	  spliter=helper.trim().split("\\(");
 	        		  value.add(spliter[1].trim().toLowerCase()); 
 	        	  }
-	        	  else if(i==(fields.length-1)/2) {
-	        		  helper = fields[2].trim().toLowerCase();
+	        	  else if(i==(fields.length-1)/2&&i!=0) {
+	        		  helper = fields[(fields.length-1)/2].trim().toLowerCase();
 	            	  spliter=helper.trim().split("\\)");
 	        		  value.add(spliter[0].trim().toLowerCase());
-	        		  helper = fields[2].trim().toLowerCase();
+	        		  helper = fields[(fields.length-1)/2].trim().toLowerCase();
 	            	  spliter=helper.trim().split("\\(");
 	        		  value1.add(spliter[1].trim().toLowerCase()); 
+	        	  }
+	        	  else if(i==(fields.length-1)/2&&i==0) {
+	        		  helper = fields[0].trim().toLowerCase();
+	            	  spliter=helper.trim().split("\\)");
+	            	  helperr=spliter[0].trim().toLowerCase();
+	            	  spliterr=helperr.trim().split("\\(");
+	        		  value.add(spliterr[1].trim().toLowerCase());
+	        		  helper = fields[0].trim().toLowerCase();
+	            	  spliter=helper.trim().split("\\(");
+	            	  helperr=spliter[2].trim().toLowerCase();
+	            	  spliterr=helperr.trim().split("\\)");
+	        		  value1.add(spliterr[0].trim().toLowerCase()); 
 	        	  }
 	        	  else if(i==fields.length-1) {
 	        		  helper = fields[fields.length-1].trim().toLowerCase();
@@ -160,7 +174,7 @@ public class parsingInsert_Update_Delete {
 	        	  }
 	        	 
 	          }
-	          for(int i=0 ; i<(fields.length-1)/2 ; i++) {
+	          for(int i=0 ; i<=(fields.length-1)/2 ; i++) {
 	        	  tableDetails.add(new IHolder(value.get(i), value1.get(i)));
 	          }
 	          return true;
