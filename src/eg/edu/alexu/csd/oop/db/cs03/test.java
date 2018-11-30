@@ -28,6 +28,47 @@ public class test {
 		Command c1 = new DropDatabase( "PoliceStation" );
 		Command c2 = new CreateTable("NewTable", "PoliceStation", arraylist);
 		Command c3 = new DropTable("NewTable", "PoliceStation");
+		
+		
+		
+		Object[][] o = new Object[3][3];
+		
+		o[0][0] = "'a'";
+		o[0][1] = "'b'";
+		o[0][2] = "'c'";
+		
+		o[1][0] = "'1'";
+		o[1][1] = "'2'";
+		o[1][2] = "'3'";
+		
+		o[2][0] = "'11'";
+		o[2][1] = "'22'";
+		o[2][2] = "'33'";
+		
+		Object[] namesOfCols = new Object[3];
+		
+		namesOfCols[0] = "col1";
+		namesOfCols[1] = "col2";
+		namesOfCols[2] = "col3";
+		
+		ArrayList<String> selectedCols = new ArrayList<>();
+		
+		selectedCols.add("col3");
+		selectedCols.add("col2");
+		
+		Command c5 = new SelectTable(o, namesOfCols, selectedCols);
+		
+		Object[][] o1 = (Object[][]) c5.execute();
+		
+	//	System.out.println(o1[0][0]);
+		
+		
+		for (int i = 0; i < o1.length; i ++) {
+			for (int j = 0; j <o1[0].length; j++) {
+				System.out.println(o1[i][j]);
+			}
+		}
+		
 		//CommandUpdate c4 = new InsertTable("PoliceStation", "NewTable", arraylist1);
 
 		//c1.execute();
@@ -36,20 +77,7 @@ public class test {
 		
 		//db.executeStructureQuery("CREATE DATABASE      TestDB ");
 		
-		String line = "CREATE DATABASE" + " " + "sample\\TestDB";
 		
-		System.out.println(System.getProperty("file.separator"));
-		
-		String f = System.getProperty("file.separator");
-		
-		String pattern = "^(?i)(CREATE)+(\\s*)+(?i)(DATABASE)+(\\s*)+((\\w+)|(\\w+([\\" + f + "]\\w+)+))\\s*$";
-	      // Create a Pattern object
-	      Pattern r = Pattern.compile(pattern);
-	      // Now create matcher object.
-	      Matcher m = r.matcher(line);
-	      if (m.find()) {
-	    	  System.out.println(m.group(5)); 
-	      }	
 		
 	//	db.executeStructureQuery("CREATE   TABLE   table_name1(column_name1 varchar , column_name2    int,  column_name3 varchar)       ");
 

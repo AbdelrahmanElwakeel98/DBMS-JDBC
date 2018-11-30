@@ -11,6 +11,8 @@ public class CreateDatabase implements Command {
 
 	public CreateDatabase (String databaseName) {
 		this.databaseName = databaseName;
+
+
 	}
 
 	@Override
