@@ -83,7 +83,7 @@ public class parsingCreate_Drop {
 
    public boolean check4()	{
 	      String pattern ="^(?i)\\s*(CREATE)\\s*(TABLE)\\s*(\\w*+)\\s*+"
-		      		+ "(\\()\\s*(\\w+\\s*+(varchar|int)\\s*(,)\\s*)*(\\w+\\s*+(varchar|int)\\s*)"
+		      		+ "(\\()\\s*(\\w+\\s*+(?i)(varchar|int)\\s*(,)\\s*)*(\\w+\\s*+(?i)(varchar|int)\\s*)"
 		      		+ "(\\))\\s*(;)?\\s*$";
 	      // Create a Pattern object
 	      Pattern r = Pattern.compile(pattern);

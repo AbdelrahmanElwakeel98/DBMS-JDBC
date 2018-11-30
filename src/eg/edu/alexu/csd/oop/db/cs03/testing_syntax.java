@@ -8,55 +8,32 @@ import java.util.regex.Pattern;
 public class testing_syntax {
 
 	public static void main(String[] args) {
-		ArrayList<IHolder> tableDetails = new ArrayList<>();
-		String line = "INSERT INTO table_name1(column_NAME1,COLUMN_name3,"
-   		        + "column_name2)VALUES('value1','value3',4) " ;		  
-	  String pattern = "^\\s*+(?i)(INSERT)\\s*+(INTO)+(\\s*)+(\\w*+)\\s*(\\()+\\s*+((\\w*+)\\s*(,)\\s*)*+(\\w*+)\\s*(\\))\\s*+"
-	  		+ "(?i)(VALUES)\\s*+(\\()\\s*+((\\d|(')+"
-	  		+ "(\\w*+)('))+\\s*(,)\\s*)*+(\\d|((')+(\\w*+)(')))+\\s*+(\\))\\s*$";
-      // Create a Pattern object
-      Pattern r = Pattern.compile(pattern);
-      // Now create matcher object.
-      Matcher m = r.matcher(line);
-      if (m.find()) {
-    	  String[] attr = line.trim().split("\\(");
-    	  String[] attr3 = attr[1].trim().split("\\)");
-    	  String[] attr1 = attr3[0].trim().split(",");
-    	  String[] attr4 = attr3[0].trim().split(",");
-    	  String withoutS1 = null ;
-    	  for (int i = 0; i < attr1.length; i++) { 
-    		  withoutS1=attr1[i].replaceAll(" ", "");
-			  System.out.println(withoutS1);
-    	  }
-    	  attr = line.trim().split("VALUES");
-    	  attr4 = attr[1].trim().split("\\(");
-    	  attr3 = attr4[1].trim().split("\\)");
-    	  attr1 = attr3[0].trim().split(",");
-    	  for (int i = 0; i < attr1.length; i++) { 
-    		  withoutS1=attr1[i].replaceAll(" ", "");
-			  System.out.println(withoutS1);
-    	  }
-
-    
-		/* String line = "    UPDATE    table_name1        SET    column_name1    =   '11111111'  ,  hh    =     '1111'       WHERE    coLUmn_NAME2   =   8   " ;		  
-		   String pattern = "^\\s*+(?i)(UPDATE)+\\s*+(\\w*+)\\s*+(SET)+\\s*+((\\w*+)\\s*+(=)+\\s*+(\\d|(')+(\\w*+)('))+\\s*+(,)\\s*)*+"
-			  	     	+ "(\\w*+)\\s*+(=)+\\s*+(\\d|(')+(\\w*+)('))+\\s*+(WHERE)+\\s*+(\\w*+)\\s*+((?:[<|>|=]))+\\s*+(\\d|(')(\\w*+)('))\\s*$";
+		String line = "   SELeCT    column1   ,   column2   ,    column3   ,   column4     FroM     table_name1     " ;		  
+		   String pattern = "^\\s*(?i)(SELECT)\\s*+((\\w*+)\\s*+(,)+\\s*)*+(\\w*+)\\s*+(?i)(FROM)\\s*+(\\w*+)\\s*+((WHERE)+\\s*+"
+		   		           + "(\\w*+)\\s*+((?:[<|>|=]))\\s*+(\\d)+\\s*)*$";
 		      // Create a Pattern object
 		      Pattern r = Pattern.compile(pattern);
 		      // Now create matcher object.
 		      Matcher m = r.matcher(line);
 		      if (m.find()) {
-		    	  String[] attr = line.trim().split("SET");
-		    	  String[] attr1 = attr[1].trim().split(","); 
-		    	  for (int i = 0; i < attr1.length; i++) {
-		    		  String[] attr2 = attr1[i].trim().split("=");
-					tableDetails.add(new IHolder(attr2[0], attr2[1]));
-					   System.out.println(attr2[1]);
+		    	  ArrayList<String> value = new ArrayList<>();
+		    	  String[] attr = line.trim().split("(?i)SELECT");
+		    	  String[] attr3 = attr[1].trim().split("(?i)FROM");
+		    	  String[] attr1 = attr3[0].trim().split(",");
+		    	  String withoutS1 = null ;
+		    	  for (int i = 0; i < attr1.length; i++) { 
+		    		  withoutS1=attr1[i].replaceAll(" ", "");
+					  value.add(withoutS1);
 		    	  }
-		      
-		      */
-		       
-		      }	
+               if(m.group(8)!=null) {
+  	  		    String conditionColumn = m.group(9);
+  	  		 String conditionSign = m.group(10);
+  	  		String conditionValue = m.group(11);
+  	  	System.out.println(conditionColumn);
+  	    	  }
+               System.out.println(value.get(3));
+               
+		      }	 
 		
 	      
 } 

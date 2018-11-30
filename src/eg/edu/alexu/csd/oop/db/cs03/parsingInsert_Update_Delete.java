@@ -59,15 +59,15 @@ public class parsingInsert_Update_Delete {
 	}
 	
 	public boolean check2()	{
-		 String pattern = "^\\s*+(?i)(UPDATE)+\\s*+(\\w*+)\\s*+(SET)+\\s*+((\\w*+)\\s*+(=)+\\s*+(\\d|(')+(\\w*+)('))+\\s*+(,)\\s*)*+"
-		  	     	+ "(\\w*+)\\s*+(=)+\\s*+(\\d|(')+(\\w*+)('))+\\s*+(WHERE)+\\s*+(\\w*+)\\s*+((?:[<|>|=]))+\\s*+(\\d|(')(\\w*+)('))\\s*$";
+		 String pattern = "^\\s*+(?i)(UPDATE)+\\s*+(\\w*+)\\s*+(?i)(SET)+\\s*+((\\w*+)\\s*+(=)+\\s*+(\\d|(')+(\\w*+)('))+\\s*+(,)\\s*)*+"
+		  	     	+ "(\\w*+)\\s*+(=)+\\s*+(\\d|(')+(\\w*+)('))+\\s*+(?i)(WHERE)+\\s*+(\\w*+)\\s*+((?:[<|>|=]))+\\s*+(\\d|(')(\\w*+)('))\\s*$";
 	      // Create a Pattern object
 	      Pattern r = Pattern.compile(pattern);
 	      // Now create matcher object.
 	      Matcher m = r.matcher(this.query);
 	      if (m.find()) {
-	    	  String[] attr = this.query.trim().split("SET");
-	    	  String[] attr3 = attr[1].trim().split("WHERE");
+	    	  String[] attr = this.query.trim().split("(?i)SET");
+	    	  String[] attr3 = attr[1].trim().split("(?i)WHERE");
 	    	  String[] attr1 = attr3[0].trim().split(","); 
 	    	  String withoutS1 = null ;
 	    	  String withoutS2 = null ;
@@ -107,7 +107,7 @@ public class parsingInsert_Update_Delete {
 	    		  withoutS1=attr1[i].replaceAll(" ", "");
 				  value.add(withoutS1);
 	    	  }
-	    	  attr = this.query.trim().split("VALUES");
+	    	  attr = this.query.trim().split("(?i)VALUES");
 	    	  attr4 = attr[1].trim().split("\\(");
 	    	  attr3 = attr4[1].trim().split("\\)");
 	    	  attr1 = attr3[0].trim().split(",");
