@@ -49,13 +49,15 @@ public class InsertTable implements Command {
 			// where j is number of columns
 
 			Element row = doc.createElement("row");
-			rootElement.appendChild(row);
+			
 			if (data == null) {
 				for (int j = 0; j < arrayOfinsert.size(); j++) {
+					rootElement.appendChild(row);
 					row.appendChild(Add_column(col_names.get(j), arrayOfinsert.get(j).getDataTypes(), doc));
 				}
 			} else {
 				for (int i = 0; i < data.length + 1; i++) {
+					rootElement.appendChild(row);
 					for (int j = 0; j < arrayOfinsert.size(); j++) {
 						if (i == data.length) {
 							row.appendChild(Add_column(col_names.get(j), arrayOfinsert.get(j).getDataTypes(), doc));
