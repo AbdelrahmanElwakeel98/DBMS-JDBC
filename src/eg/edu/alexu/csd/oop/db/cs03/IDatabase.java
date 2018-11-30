@@ -15,11 +15,11 @@ public class IDatabase implements Database {
 
 		if (dir.exists() && dropIfExists) {
 			try {
-				
+
 				this.databaseN = databaseName;
-								
+
 				executeStructureQuery("DROP DATABASE" + " " + databaseName);
-				
+
 				if (executeStructureQuery("CREATE DATABASE" + " " + databaseName)) {
 					return dir.getAbsolutePath();
 				} else {
@@ -32,7 +32,7 @@ public class IDatabase implements Database {
 				return null;
 			}
 		} else if (dir.exists() && !dropIfExists) {
-			
+
 			return dir.getAbsolutePath();
 
 		} else if (!dir.exists()) {
@@ -43,7 +43,7 @@ public class IDatabase implements Database {
 				} else {
 					return null;
 				}
-				
+
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -60,18 +60,19 @@ public class IDatabase implements Database {
 
 		if (parse.validity()) {
 
-			
-			
+
+
 			FactoryCommand f = new FactoryCommand(parse.getWhichOrder() + " " + parse.getDatabaseOrTable(), this.databaseN, parse.getName(), parse.getTableDetails());
-            
+
             return f.commandChooser();
+
 
 		} else {
 
 			throw new SQLException ("Invalid Query");
 		}
 
-		
+
 	}
 
 	@Override
