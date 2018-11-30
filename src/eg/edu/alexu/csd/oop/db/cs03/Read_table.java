@@ -19,6 +19,8 @@ import org.w3c.dom.Element;
 public class Read_table {
 
 	public static void main(String[] args) {
+		Save_operation x = new Save_operation();
+		
 		File file = new File("file.dtd");
 		BufferedReader br;
 		int count = 0;
@@ -78,6 +80,7 @@ public class Read_table {
 					System.out.println(data[i][j]);
 				}
 			}
+			x.save(data, "");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
