@@ -43,10 +43,11 @@ public class Update_table implements Command {
 				for (int j = 0; j < data[0].length; j++) {
 					if (j == col_num) {
 						if (value.equals((String) data[i][j])) {
-
-							for (int k = 0; k < data[0].length; k++) {
-								if (arrayOfinsert.get(k).getFieldNames().equals(col_names.get(k))) {
-									data[i][k] = arrayOfinsert.get(k).getDataTypes();
+							for (int l = 0; l < arrayOfinsert.size(); l++) {
+								for (int k = 0; k < data[0].length; k++) {
+									if (arrayOfinsert.get(l).getFieldNames().equals(col_names.get(k))) {
+										data[i][k] = arrayOfinsert.get(k).getDataTypes();
+									}
 								}
 
 							}
@@ -63,9 +64,11 @@ public class Update_table implements Command {
 						case "<":
 							if ((int) data[i][j] < Integer.parseInt(value)) {
 
-								for (int k = 0; k < data[0].length; k++) {
-									if (arrayOfinsert.get(k).getFieldNames().equals(col_names.get(k))) {
-										data[i][k] = arrayOfinsert.get(k).getDataTypes();
+								for (int l = 0; l < arrayOfinsert.size(); l++) {
+									for (int k = 0; k < data[0].length; k++) {
+										if (arrayOfinsert.get(l).getFieldNames().equals(col_names.get(k))) {
+											data[i][k] = arrayOfinsert.get(k).getDataTypes();
+										}
 									}
 
 								}
@@ -73,18 +76,22 @@ public class Update_table implements Command {
 							break;
 						case ">":
 							if ((int) data[i][j] > Integer.parseInt(value)) {
-								for (int k = 0; k < data[0].length; k++) {
-									if (arrayOfinsert.get(k).getFieldNames().equals(col_names.get(k))) {
-										data[i][k] = arrayOfinsert.get(k).getDataTypes();
+								for (int l = 0; l < arrayOfinsert.size(); l++) {
+									for (int k = 0; k < data[0].length; k++) {
+										if (arrayOfinsert.get(l).getFieldNames().equals(col_names.get(k))) {
+											data[i][k] = arrayOfinsert.get(k).getDataTypes();
+										}
 									}
 
 								}
 							}
 							break;
 						case "=":
-							for (int k = 0; k < data[0].length; k++) {
-								if (arrayOfinsert.get(k).getFieldNames().equals(col_names.get(k))) {
-									data[i][k] = arrayOfinsert.get(k).getDataTypes();
+							for (int l = 0; l < arrayOfinsert.size(); l++) {
+								for (int k = 0; k < data[0].length; k++) {
+									if (arrayOfinsert.get(l).getFieldNames().equals(col_names.get(k))) {
+										data[i][k] = arrayOfinsert.get(k).getDataTypes();
+									}
 								}
 
 							}
