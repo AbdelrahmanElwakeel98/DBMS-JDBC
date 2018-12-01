@@ -7,7 +7,7 @@ import eg.edu.alexu.csd.oop.db.Command;
 public class SelectTableConditional implements Command {
 
 	private Object[][] detailsOfTable;
-	private Object[] namesOfCols;
+	private ArrayList<String> namesOfCols;
 	private ArrayList<String> selectedCols = new ArrayList<>();
 	private ArrayList<Object> col = new ArrayList<>();
 	private Object[][] selectedTable;
@@ -19,7 +19,7 @@ public class SelectTableConditional implements Command {
 	private boolean[][] checker;
 	private ArrayList<String> cols_name;
 
-	public SelectTableConditional(Object[][] detailsOfTable, Object[] namesOfCols, ArrayList<String> selectedCols,
+	public SelectTableConditional(Object[][] detailsOfTable, ArrayList<String> namesOfCols, ArrayList<String> selectedCols,
 			String target, String sign, String value, ArrayList<String> cols_name) {
 		this.detailsOfTable = detailsOfTable;
 		this.namesOfCols = namesOfCols;
@@ -37,8 +37,8 @@ public class SelectTableConditional implements Command {
 
 		switch (sign) {
 		case "=":
-			for (int i = 0; i < this.namesOfCols.length; i++) {
-				if (this.target.equals(this.namesOfCols[i])) {
+			for (int i = 0; i < this.namesOfCols.size(); i++) {
+				if (this.target.equals(this.namesOfCols.get(i))) {
 					count = 0;
 					for (int x = 0; x < this.detailsOfTable.length; x++) {
 						if (this.detailsOfTable[x][i].equals(value)) {
@@ -52,8 +52,8 @@ public class SelectTableConditional implements Command {
 
 		case "<":
 			if (this.value.charAt(0) == '\'') {
-				for (int i = 0; i < this.namesOfCols.length; i++) {
-					if (this.target.equals(this.namesOfCols[i])) {
+				for (int i = 0; i < this.namesOfCols.size(); i++) {
+					if (this.target.equals(this.namesOfCols.get(i))) {
 						count = 0;
 						for (int x = 0; x < this.detailsOfTable.length; x++) {
 							if (this.detailsOfTable[x][i].toString().compareTo(value) < 0) {
@@ -63,8 +63,8 @@ public class SelectTableConditional implements Command {
 					}
 				}
 			} else {
-				for (int i = 0; i < this.namesOfCols.length; i++) {
-					if (this.target.equals(this.namesOfCols[i])) {
+				for (int i = 0; i < this.namesOfCols.size(); i++) {
+					if (this.target.equals(this.namesOfCols.get(i))) {
 						count = 0;
 						for (int x = 0; x < this.detailsOfTable.length; x++) {
 							if (Integer.parseInt((String) this.detailsOfTable[x][i]) < Integer.parseInt(value)) {
@@ -79,8 +79,8 @@ public class SelectTableConditional implements Command {
 		case ">":
 
 			if (this.value.charAt(0) == '\'') {
-				for (int i = 0; i < this.namesOfCols.length; i++) {
-					if (this.target.equals(this.namesOfCols[i])) {
+				for (int i = 0; i < this.namesOfCols.size(); i++) {
+					if (this.target.equals(this.namesOfCols.get(i))) {
 						count = 0;
 						for (int x = 0; x < this.detailsOfTable.length; x++) {
 							if (this.detailsOfTable[x][i].toString().compareTo(value) > 0) {
@@ -90,8 +90,8 @@ public class SelectTableConditional implements Command {
 					}
 				}
 			} else {
-				for (int i = 0; i < this.namesOfCols.length; i++) {
-					if (this.target.equals(this.namesOfCols[i])) {
+				for (int i = 0; i < this.namesOfCols.size(); i++) {
+					if (this.target.equals(this.namesOfCols.get(i))) {
 						count = 0;
 						for (int x = 0; x < this.detailsOfTable.length; x++) {
 
@@ -113,8 +113,8 @@ public class SelectTableConditional implements Command {
 
 		switch (sign) {
 		case "=":
-			for (int i = 0; i < this.namesOfCols.length; i++) {
-				if (this.target.equals(this.namesOfCols[i])) {
+			for (int i = 0; i < this.namesOfCols.size(); i++) {
+				if (this.target.equals(this.namesOfCols.get(i))) {
 					for (int x = 0; x < this.detailsOfTable.length; x++) {
 						if (this.detailsOfTable[x][i].equals(value)) {
 							for (int l = 0; l < selectedCols.size(); l++) {
@@ -134,8 +134,8 @@ public class SelectTableConditional implements Command {
 		case "<":
 
 			if (this.value.charAt(0) == '\'') {
-				for (int i = 0; i < this.namesOfCols.length; i++) {
-					if (this.target.equals(this.namesOfCols[i])) {
+				for (int i = 0; i < this.namesOfCols.size(); i++) {
+					if (this.target.equals(this.namesOfCols.get(i))) {
 						for (int x = 0; x < this.detailsOfTable.length; x++) {
 							if (this.detailsOfTable[x][i].toString().compareTo(value) < 0) {
 								for (int l = 0; l < selectedCols.size(); l++) {
@@ -150,8 +150,8 @@ public class SelectTableConditional implements Command {
 					}
 				}
 			} else {
-				for (int i = 0; i < this.namesOfCols.length; i++) {
-					if (this.target.equals(this.namesOfCols[i])) {
+				for (int i = 0; i < this.namesOfCols.size(); i++) {
+					if (this.target.equals(this.namesOfCols.get(i))) {
 						for (int x = 0; x < this.detailsOfTable.length; x++) {
 							if (Integer.parseInt((String) this.detailsOfTable[x][i]) < Integer.parseInt(value)) {
 								for (int l = 0; l < selectedCols.size(); l++) {
@@ -160,7 +160,6 @@ public class SelectTableConditional implements Command {
 											checker[x][k] = true;
 										}
 									}
-
 								}
 							}
 						}
@@ -172,8 +171,8 @@ public class SelectTableConditional implements Command {
 		case ">":
 
 			if (this.value.charAt(0) == '\'') {
-				for (int i = 0; i < this.namesOfCols.length; i++) {
-					if (this.target.equals(this.namesOfCols[i])) {
+				for (int i = 0; i < this.namesOfCols.size(); i++) {
+					if (this.target.equals(this.namesOfCols.get(i))) {
 						for (int x = 0; x < this.detailsOfTable.length; x++) {
 							if (this.detailsOfTable[x][i].toString().compareTo(value) > 0) {
 								for (int l = 0; l < selectedCols.size(); l++) {
@@ -188,8 +187,8 @@ public class SelectTableConditional implements Command {
 					}
 				}
 			} else {
-				for (int i = 0; i < this.namesOfCols.length; i++) {
-					if (this.target.equals(this.namesOfCols[i])) {
+				for (int i = 0; i < this.namesOfCols.size(); i++) {
+					if (this.target.equals(this.namesOfCols.get(i))) {
 						for (int x = 0; x < this.detailsOfTable.length; x++) {
 							if (Integer.parseInt((String) this.detailsOfTable[x][i]) > Integer.parseInt(value)) {
 								for (int l = 0; l < selectedCols.size(); l++) {
