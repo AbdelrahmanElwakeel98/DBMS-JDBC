@@ -102,7 +102,7 @@ public class parsingSelect {
 		}
 		else {
 		    return true;
-		}
+		} 
 	}
 	
 	public String getConditionColumn() {
