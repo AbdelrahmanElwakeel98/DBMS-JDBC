@@ -29,16 +29,19 @@ public class Read_table {
 	}
 
 	public Object[][] read_table() {
-		
+				
 		dtdreader = new Dtdreader(databaseName,tableName);
 		col_names = dtdreader.read();
 		try {
+			System.out.println();
 			File inputFile = new File(databaseName + System.getProperty("file.separator") + tableName + ".xml");
+			BufferedReader br = new BufferedReader(new FileReader(databaseName + System.getProperty("file.separator") + tableName + ".xml"));     
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			if (inputFile.length() == 0) {
+			if (br.readLine() == null) {
 				return null;
 			} else {
+				System.out.println("d5l");
 				Document doc = dBuilder.parse(inputFile);
 				doc.getDocumentElement().normalize();
 				NodeList nList = doc.getElementsByTagName("row");
