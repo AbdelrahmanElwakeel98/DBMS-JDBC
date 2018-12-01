@@ -19,7 +19,7 @@ public class parsingInsert_Update_Delete {
 	//private ArrayList<String> valuesArgs;
 	public parsingInsert_Update_Delete(String query) {
 		this.query = query;
-		tableName = " ";
+		tableName = null;
 		conditionColumn =" ";
 		conditionSign = " ";
 		conditionValue =" ";
@@ -29,15 +29,15 @@ public class parsingInsert_Update_Delete {
 		//fieldNames = new ArrayList<>();
 		//valuesArgs = new ArrayList<>();
 	}
-
+	
 	public boolean validity () {
 		if(check1()||check2()||check3()) {
 			return true;
 		}else {
 		  return false;
-		}
+		} 
 	}
-
+	
 	private boolean check1()	{
 	      String pattern = "^(?i)(DELETE FROM)+(\\s)+(\\w*+)\\s*+(?i)(WHERE)+\\s+(\\w*+)((?:[<|>|=]))(\\d|(')(\\w*+)('))$";
 	      // Create a Pattern object
@@ -46,31 +46,31 @@ public class parsingInsert_Update_Delete {
 	      Matcher m = r.matcher(this.query);
 	      if (m.find()) {
 	    	  order = "delete";
-	    	  tableName = m.group(3);
+	    	  tableName = m.group(3);            
 	  		  conditionColumn = m.group(5);
 	  		  conditionSign = m.group(6);
 	  		  conditionValue = m.group(7);
-
+	    	  
 	          return true;
-	      }
+	      }	
 	      else {
 	    	  return false;
-	      }
+	      }	
 	}
-
+	
 	private boolean check2()	{
-		 String pattern = "^\\s*+(?i)(UPDATE)+\\s*+(\\w*+)\\s*+(?i)(SET)+\\s*+((\\w*+)\\s*+(=)+\\s*+(\\d|(')+(\\w*+)('))+\\s*+(,)\\s*)*+"
-		  	     	+ "(\\w*+)\\s*+(=)+\\s*+(\\d|(')+(\\w*+)('))+\\s*+(?i)(WHERE)+\\s*+(\\w*+)\\s*+((?:[<|>|=]))+\\s*+(\\d|(')(\\w*+)('))\\s*$";
+		 String pattern = "^\\s*+(?i)(UPDATE)+\\s*+(\\w*+)\\s*+(?i)(SET)+\\s*+((\\w*+)\\s*+(=)+\\s*+"
+			   		+ "(\\d|(')+(\\w*+)('))+\\s*+(,)\\s*)*+(\\w*+)\\s*+(=)+\\s*+(\\d|(')+(\\w*+)('))+\\s*+"
+			   		+ "((?i)(WHERE)+\\s*+(\\w*+)\\s*+((?:[<|>|=]))+\\s*+(\\d|(')(\\w*+)('))\\s*)*$";
 	      // Create a Pattern object
 	      Pattern r = Pattern.compile(pattern);
 	      // Now create matcher object.
 	      Matcher m = r.matcher(this.query);
 	      if (m.find()) {
 	    	  order = "update";
-	    	  tableName = m.group(2);
 	    	  String[] attr = this.query.trim().split("(?i)SET");
 	    	  String[] attr3 = attr[1].trim().split("(?i)WHERE");
-	    	  String[] attr1 = attr3[0].trim().split(",");
+	    	  String[] attr1 = attr3[0].trim().split(","); 
 	    	  String withoutS1 = null ;
 	    	  String withoutS2 = null ;
 	    	  for (int i = 0; i < attr1.length; i++) {
@@ -78,17 +78,21 @@ public class parsingInsert_Update_Delete {
 	    		  withoutS1=attr2[0].replaceAll(" ", "");
 	    		  withoutS2=attr2[1].replaceAll(" ", "");
 				tableDetails.add(new IHolder(withoutS1.toLowerCase(), withoutS2));
-
+				  
 	      }
-
-
+	    	  if(m.group(19)!=null) {
+		  		     conditionColumn = m.group(20);
+		  		     conditionSign = m.group(21);
+		  		     conditionValue = m.group(22);
+		    	  }
+	       
 	          return true;
-	      }
+	      }	
 	      else {
 	    	  return false;
-	      }
+	      }	
 	}
-
+	
 	private boolean check3()	{
 		 String pattern = "^\\s*+(?i)(INSERT)\\s*+(INTO)+(\\s*)+(\\w*+)\\s*(\\()+\\s*+((\\w*+)\\s*(,)\\s*)*+(\\w*+)\\s*(\\))\\s*+"
 			  		+ "(?i)(VALUES)\\s*+(\\()\\s*+((\\d|(')+"
@@ -105,7 +109,7 @@ public class parsingInsert_Update_Delete {
 	    	  String[] attr1 = attr3[0].trim().split(",");
 	    	  String[] attr4 = attr3[0].trim().split(",");
 	    	  String withoutS1 = null ;
-	    	  for (int i = 0; i < attr1.length; i++) {
+	    	  for (int i = 0; i < attr1.length; i++) { 
 	    		  withoutS1=attr1[i].replaceAll(" ", "");
 				  value.add(withoutS1);
 	    	  }
@@ -113,7 +117,7 @@ public class parsingInsert_Update_Delete {
 	    	  attr4 = attr[1].trim().split("\\(");
 	    	  attr3 = attr4[1].trim().split("\\)");
 	    	  attr1 = attr3[0].trim().split(",");
-	    	  for (int i = 0; i < attr1.length; i++) {
+	    	  for (int i = 0; i < attr1.length; i++) { 
 	    		  withoutS1=attr1[i].replaceAll(" ", "");
 	    		  value1.add(withoutS1);
 	    	  }
@@ -122,36 +126,36 @@ public class parsingInsert_Update_Delete {
 	        	  tableDetails.add(new IHolder(value.get(i).toLowerCase(), value1.get(i)));
 	          }
 	          return true;
-	      }
+	      }	
 	      else {
 	    	  return false;
-	      }
+	      }	
 	}
-
-
+	
+	
 	public String getWhichOrder() {
-		return order;
+		return order;                 
 	}
-
-
+	
+	
 	public String getTableName() {
 		return tableName.toLowerCase();
 	}
-
+	
 	public String getConditionColumn() {
 		return conditionColumn.toLowerCase();
 	}
-
+	
 	public String getConditionSign() {
 		return conditionSign;
 	}
-
+	
 	public String getConditionValue() {
 		return conditionValue;
 	}
-
+	
 	public ArrayList<IHolder> getTableDetails(){
 		return tableDetails;
 	}
-
+	
 }
