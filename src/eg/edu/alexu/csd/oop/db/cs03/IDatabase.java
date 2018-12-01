@@ -94,7 +94,7 @@ public class IDatabase implements Database {
 			}
 		} else {
 			throw new SQLException ("Invalid Query");
-		}
+		}         
 
 		return 0;
 	}
