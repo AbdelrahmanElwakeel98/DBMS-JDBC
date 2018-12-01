@@ -19,7 +19,7 @@ public class parsingInsert_Update_Delete {
 	//private ArrayList<String> valuesArgs;
 	public parsingInsert_Update_Delete(String query) {
 		this.query = query;
-		tableName = null;
+		tableName = " ";
 		conditionColumn =" ";
 		conditionSign = " ";
 		conditionValue =" ";
@@ -68,6 +68,7 @@ public class parsingInsert_Update_Delete {
 	      Matcher m = r.matcher(this.query);
 	      if (m.find()) {
 	    	  order = "update";
+	    	  tableName=m.group(2);
 	    	  String[] attr = this.query.trim().split("(?i)SET");
 	    	  String[] attr3 = attr[1].trim().split("(?i)WHERE");
 	    	  String[] attr1 = attr3[0].trim().split(","); 
@@ -77,7 +78,7 @@ public class parsingInsert_Update_Delete {
 	    		  String[] attr2 = attr1[i].trim().split("=");
 	    		  withoutS1=attr2[0].replaceAll(" ", "");
 	    		  withoutS2=attr2[1].replaceAll(" ", "");
-				tableDetails.add(new IHolder(withoutS1.toLowerCase(), withoutS2));
+				tableDetails.add(new IHolder(withoutS1.toLowerCase(), withoutS2.toLowerCase() ));
 				  
 	      }
 	    	  if(m.group(19)!=null) {
@@ -123,7 +124,7 @@ public class parsingInsert_Update_Delete {
 	    	  }
 
 	          for(int i=0 ; i<attr1.length; i++) {
-	        	  tableDetails.add(new IHolder(value.get(i).toLowerCase(), value1.get(i)));
+	        	  tableDetails.add(new IHolder(value.get(i).toLowerCase() , value1.get(i).toLowerCase() ));
 	          }
 	          return true;
 	      }	
@@ -151,7 +152,7 @@ public class parsingInsert_Update_Delete {
 	}
 	
 	public String getConditionValue() {
-		return conditionValue;
+		return conditionValue.toLowerCase() ;
 	}
 	
 	public ArrayList<IHolder> getTableDetails(){

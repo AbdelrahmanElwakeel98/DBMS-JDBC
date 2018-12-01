@@ -18,6 +18,7 @@ public class Delete_table implements Command {
 	private int count_delete = 0;
 	private int count_new = 0;
 	private Save_table save_table;
+	private boolean[][] flag;
 
 	public Delete_table(String databaseName, String tableName, Object[][] data, String col_name, String sign,
 			String value) {
@@ -33,7 +34,8 @@ public class Delete_table implements Command {
 	public Object execute() {
 		dtdreader = new Dtdreader(databaseName, tableName);
 		col_names = dtdreader.read();
-		Boolean[][] flag = new Boolean[data.length][data[0].length];
+		flag = new boolean[data.length][data[0].length];
+
 		for (int i = 0; i < col_names.size(); i++) {
 			if (col_names.get(i).equals(col_name)) {
 				col_num = i;
@@ -123,7 +125,7 @@ public class Delete_table implements Command {
 		}
 		save_table = new Save_table(databaseName, tableName, new_data);
 		save_table.save();
-		return new_data.length;
+		return count_delete;
 	}
 
 }
