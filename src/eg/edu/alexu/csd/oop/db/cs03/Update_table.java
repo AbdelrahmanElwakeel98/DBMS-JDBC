@@ -32,43 +32,92 @@ public class Update_table implements Command {
 	public Object execute() {
 		dtdreader = new Dtdreader(databaseName, tableName);
 		col_names = dtdreader.read();
-		for (int i = 0; i < col_names.size(); i++) {
-			if (col_names.get(i).equals(col_name)) {
-				col_num = i;
+		if (!col_name.equals(" ")) {
+			for (int i = 0; i < col_names.size(); i++) {
+				if (col_names.get(i).equals(col_name)) {
+					col_num = i;
+				}
 			}
-		}
-		if (value.charAt(0) == '\'' && sign.equals("=")) {
 
-			for (int i = 0; i < data.length; i++) {
-				for (int j = 0; j < data[0].length; j++) {
-					if (j == col_num) {
-						switch (sign) {
-						case "=":
-							if (value.equals((String) data[i][j])) {
-								for (int l = 0; l < arrayOfinsert.size(); l++) {
-									for (int k = 0; k < data[0].length; k++) {
-										if (arrayOfinsert.get(l).getFieldNames().equals(col_names.get(k))) {
-											data[i][k] = arrayOfinsert.get(k).getDataTypes();
+			if (value.charAt(0) == '\'' && sign.equals("=")) {
+
+				for (int i = 0; i < data.length; i++) {
+					for (int j = 0; j < data[0].length; j++) {
+						if (j == col_num) {
+							switch (sign) {
+							case "=":
+								if (value.equals((String) data[i][j])) {
+									for (int l = 0; l < arrayOfinsert.size(); l++) {
+										for (int k = 0; k < data[0].length; k++) {
+											if (arrayOfinsert.get(l).getFieldNames().equals(col_names.get(k))) {
+												data[i][k] = arrayOfinsert.get(k).getDataTypes();
+											}
 										}
-									}
 
+									}
 								}
-							}
-							break;
-						case ">":
-							if (((String) data[i][j]).compareTo(value) > 0) {
-								for (int l = 0; l < arrayOfinsert.size(); l++) {
-									for (int k = 0; k < data[0].length; k++) {
-										if (arrayOfinsert.get(l).getFieldNames().equals(col_names.get(k))) {
-											data[i][k] = arrayOfinsert.get(k).getDataTypes();
+								break;
+							case ">":
+								if (((String) data[i][j]).compareTo(value) > 0) {
+									for (int l = 0; l < arrayOfinsert.size(); l++) {
+										for (int k = 0; k < data[0].length; k++) {
+											if (arrayOfinsert.get(l).getFieldNames().equals(col_names.get(k))) {
+												data[i][k] = arrayOfinsert.get(k).getDataTypes();
+											}
 										}
-									}
 
+									}
 								}
+								break;
+							case "<":
+								if (((String) data[i][j]).compareTo(value) < 0) {
+									for (int l = 0; l < arrayOfinsert.size(); l++) {
+										for (int k = 0; k < data[0].length; k++) {
+											if (arrayOfinsert.get(l).getFieldNames().equals(col_names.get(k))) {
+												data[i][k] = arrayOfinsert.get(k).getDataTypes();
+											}
+										}
+
+									}
+									break;
+								}
+
 							}
-							break;
-						case "<":
-							if (((String) data[i][j]).compareTo(value) < 0) {
+						}
+					}
+				}
+
+			} else if (value.charAt(0) != '\'') {
+				for (int i = 0; i < data.length; i++) {
+					for (int j = 0; j < data[0].length; j++) {
+						if (j == col_num) {
+							switch (sign) {
+							case "<":
+								if ((int) data[i][j] < Integer.parseInt(value)) {
+
+									for (int l = 0; l < arrayOfinsert.size(); l++) {
+										for (int k = 0; k < data[0].length; k++) {
+											if (arrayOfinsert.get(l).getFieldNames().equals(col_names.get(k))) {
+												data[i][k] = arrayOfinsert.get(k).getDataTypes();
+											}
+										}
+
+									}
+								}
+								break;
+							case ">":
+								if ((int) data[i][j] > Integer.parseInt(value)) {
+									for (int l = 0; l < arrayOfinsert.size(); l++) {
+										for (int k = 0; k < data[0].length; k++) {
+											if (arrayOfinsert.get(l).getFieldNames().equals(col_names.get(k))) {
+												data[i][k] = arrayOfinsert.get(k).getDataTypes();
+											}
+										}
+
+									}
+								}
+								break;
+							case "=":
 								for (int l = 0; l < arrayOfinsert.size(); l++) {
 									for (int k = 0; k < data[0].length; k++) {
 										if (arrayOfinsert.get(l).getFieldNames().equals(col_names.get(k))) {
@@ -78,56 +127,22 @@ public class Update_table implements Command {
 
 								}
 								break;
-							}
 
+							}
 						}
 					}
 				}
 			}
 
-		} else if (value.charAt(0) != '\'') {
+		} else {
 			for (int i = 0; i < data.length; i++) {
-				for (int j = 0; j < data[0].length; j++) {
-					if (j == col_num) {
-						switch (sign) {
-						case "<":
-							if ((int) data[i][j] < Integer.parseInt(value)) {
-
-								for (int l = 0; l < arrayOfinsert.size(); l++) {
-									for (int k = 0; k < data[0].length; k++) {
-										if (arrayOfinsert.get(l).getFieldNames().equals(col_names.get(k))) {
-											data[i][k] = arrayOfinsert.get(k).getDataTypes();
-										}
-									}
-
-								}
-							}
-							break;
-						case ">":
-							if ((int) data[i][j] > Integer.parseInt(value)) {
-								for (int l = 0; l < arrayOfinsert.size(); l++) {
-									for (int k = 0; k < data[0].length; k++) {
-										if (arrayOfinsert.get(l).getFieldNames().equals(col_names.get(k))) {
-											data[i][k] = arrayOfinsert.get(k).getDataTypes();
-										}
-									}
-
-								}
-							}
-							break;
-						case "=":
-							for (int l = 0; l < arrayOfinsert.size(); l++) {
-								for (int k = 0; k < data[0].length; k++) {
-									if (arrayOfinsert.get(l).getFieldNames().equals(col_names.get(k))) {
-										data[i][k] = arrayOfinsert.get(k).getDataTypes();
-									}
-								}
-
-							}
-							break;
-
+				for (int j = 0; j < arrayOfinsert.size(); j++) {
+					for (int k = 0; k < data[0].length; k++) {
+						if (arrayOfinsert.get(j).getFieldNames().equals(col_names.get(k))) {
+							data[i][k] = arrayOfinsert.get(k).getDataTypes();
 						}
 					}
+
 				}
 			}
 		}
