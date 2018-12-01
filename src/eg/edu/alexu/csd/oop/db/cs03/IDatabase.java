@@ -59,16 +59,10 @@ public class IDatabase implements Database {
 		parsingCreate_Drop parse = new parsingCreate_Drop(query);
 
 		if (parse.validity()) {
-
-
-
 			FactoryCommand f = new FactoryCommand(parse.getWhichOrder() + " " + parse.getDatabaseOrTable(), this.databaseN, parse.getName(), parse.getTableDetails());
 
             return f.commandChooser();
-
-
 		} else {
-
 			throw new SQLException ("Invalid Query");
 		}
 

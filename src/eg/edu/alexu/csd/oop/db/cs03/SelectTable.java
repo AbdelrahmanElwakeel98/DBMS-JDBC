@@ -11,17 +11,11 @@ public class SelectTable implements Command {
 	private ArrayList<String> selectedCols = new ArrayList<>();
 	private ArrayList<Object> col = new ArrayList<>();
 	private Object[][] selectedTable;
+	
 	public SelectTable(Object[][] detailsOfTable, Object[] namesOfCols, ArrayList<String> selectedCols) {
-
 		this.detailsOfTable = detailsOfTable;
 		this.namesOfCols = namesOfCols;
 		this.selectedCols = selectedCols;
-
-
-
-
-
-
 	}
 
 	@Override

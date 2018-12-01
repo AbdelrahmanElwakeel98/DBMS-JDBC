@@ -1,15 +1,162 @@
 package eg.edu.alexu.csd.oop.db.cs03;
 
+import java.util.ArrayList;
+
 import eg.edu.alexu.csd.oop.db.Command;
 
 public class SelectTableConditional implements Command {
-	
-	
+
+	private Object[][] detailsOfTable;
+	private Object[] namesOfCols;
+	private ArrayList<String> selectedCols = new ArrayList<>();
+	private ArrayList<Object> col = new ArrayList<>();
+	private Object[][] selectedTable;
+	private String target;
+	private String sign;
+	private String value;
+	private int count = 0;
+	private int c = 0;
+	private boolean[][] checker;
+	private ArrayList<String> cols_name;
+
+	public SelectTableConditional(Object[][] detailsOfTable, Object[] namesOfCols, ArrayList<String> selectedCols, String target, String sign, String value, ArrayList<String> cols_name) {
+		this.detailsOfTable = detailsOfTable;
+		this.namesOfCols = namesOfCols;
+		this.selectedCols = selectedCols;
+		this.target = target;
+		this.sign = sign;
+		this.value = value;
+		this.cols_name = cols_name;
+	}
+
+
 
 	@Override
 	public Object execute() {
-		// TODO Auto-generated method stub
-		return null;
+
+		checker = new boolean[this.detailsOfTable.length][this.detailsOfTable[0].length];
+
+
+		switch (sign) {
+		case "=" : for (int i = 0; i < this.namesOfCols.length; i++) {
+			if (this.target.equals(this.namesOfCols[i])) {
+				count = 0;
+				for (int x = 0; x < this.detailsOfTable.length; x++) {
+					if (this.detailsOfTable[x][i].equals(value)) {
+						count++;
+					}
+				}
+			}
+		}
+
+		break;
+
+		case "<" : for (int i = 0; i < this.namesOfCols.length; i++) {
+			if (this.target.equals(this.namesOfCols[i])) {
+				count = 0;
+				for (int x = 0; x < this.detailsOfTable.length; x++) {
+					if (Integer.parseInt((String) this.detailsOfTable[x][i]) < Integer.parseInt(value)) {
+						count++;
+					}
+				}
+			}
+		}
+		break;
+
+		case ">" : for (int i = 0; i < this.namesOfCols.length; i++) {
+			if (this.target.equals(this.namesOfCols[i])) {
+				count = 0;
+				for (int x = 0; x < this.detailsOfTable.length; x++) {
+					if (Integer.parseInt((String) this.detailsOfTable[x][i]) > Integer.parseInt(value)) {
+						count++;
+					}
+				}
+			}
+		}
+		break;
+		}
+
+		selectedTable = new Object[count][this.selectedCols.size()];
+
+		switch (sign) {
+		case "=" :
+			for (int i = 0; i < this.namesOfCols.length; i++) {
+			  if (this.target.equals(this.namesOfCols[i])) {
+				for (int x = 0; x < this.detailsOfTable.length; x++) {
+					if (this.detailsOfTable[x][i].equals(value)) {
+						for (int l = 0; l < selectedCols.size(); l++) {
+							for (int k = 0; k < detailsOfTable[0].length; k++) {
+								if (selectedCols.get(l).equals(cols_name.get(k))) {
+									checker[x][k] = true;
+								}
+							}
+
+						}
+					}
+				}
+			}
+		}
+			break;
+
+		case "<" : for (int i = 0; i < this.namesOfCols.length; i++) {
+			if (this.target.equals(this.namesOfCols[i])) {
+				for (int x = 0; x < this.detailsOfTable.length; x++) {
+					if (Integer.parseInt((String) this.detailsOfTable[x][i]) < Integer.parseInt(value)) {
+						for (int l = 0; l < selectedCols.size(); l++) {
+							for (int k = 0; k < detailsOfTable[0].length; k++) {
+								if (selectedCols.get(l).equals(cols_name.get(k))) {
+									checker[x][k] = true;
+								}
+							}
+
+						}
+					}
+				}
+			}
+		}
+		break;
+
+		case ">" : for (int i = 0; i < this.namesOfCols.length; i++) {
+			if (this.target.equals(this.namesOfCols[i])) {
+				for (int x = 0; x < this.detailsOfTable.length; x++) {
+					if (Integer.parseInt((String) this.detailsOfTable[x][i]) > Integer.parseInt(value)) {
+						for (int l = 0; l < selectedCols.size(); l++) {
+							for (int k = 0; k < detailsOfTable[0].length; k++) {
+								if (selectedCols.get(l).equals(cols_name.get(k))) {
+									checker[x][k] = true;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		break;
+
+		}
+
+		int x = 0, y = 0;
+		int flag = -1;
+
+	    for (int i = 0; i < checker.length; i++) {
+	    	for (int j = 0; j < checker[0].length; j++) {
+	    		if (checker[i][j] == true) {
+	    			
+	    			if (flag != i && i != 0) {
+	    				x++;
+	    			} 
+	    			
+	    			selectedTable[x][y] = detailsOfTable[i][j];
+	    			y++;
+	    			
+	    			flag = i;
+	    		}
+	    	}
+	    	y = 0;
+	    }
+
+	    return selectedTable;
+
 	}
 
 }

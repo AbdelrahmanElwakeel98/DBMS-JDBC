@@ -43,7 +43,7 @@ public class test {
 		
 		o[2][0] = "'11'";
 		o[2][1] = "'22'";
-		o[2][2] = "'33'";
+		o[2][2] = "'c'";
 		
 		Object[] namesOfCols = new Object[3];
 		
@@ -51,12 +51,18 @@ public class test {
 		namesOfCols[1] = "col2";
 		namesOfCols[2] = "col3";
 		
+		ArrayList<String> namesOfCol = new ArrayList<>();
+
+		namesOfCol.add("col1");
+		namesOfCol.add("col2");
+		namesOfCol.add("col3");
+		
 		ArrayList<String> selectedCols = new ArrayList<>();
 		
 		selectedCols.add("col3");
 		selectedCols.add("col2");
 		
-		Command c5 = new SelectTable(o, namesOfCols, selectedCols);
+		Command c5 = new SelectTableConditional(o, namesOfCols, selectedCols, "col3", "=", "'c'", namesOfCol);
 		
 		Object[][] o1 = (Object[][]) c5.execute();
 		
