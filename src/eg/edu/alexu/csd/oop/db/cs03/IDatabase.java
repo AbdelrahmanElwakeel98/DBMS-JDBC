@@ -77,7 +77,25 @@ public class IDatabase implements Database {
 
 	@Override
 	public int executeUpdateQuery(String query) throws SQLException {
-		// TODO Auto-generated method stub
+		parsingInsert_Update_Delete parse = new parsingInsert_Update_Delete(query);
+
+
+		if (parse.validity()) {
+			CheckerExist checker = new CheckerExist(this.databaseN, parse.getTableName(), parse.getWhichOrder(), parse.getTableDetails(), new Dtdreader(this.databaseN, parse.getTableName()).read());
+			if (checker.tableIfExist()) {
+				if (checker.colsIfExist()) {
+
+
+				} else {
+					throw new SQLException ("Invalid SelectedCols");
+				}
+			} else {
+				throw new SQLException ("Invalid Table");
+			}
+		} else {
+			throw new SQLException ("Invalid Query");
+		}
+
 		return 0;
 	}
 

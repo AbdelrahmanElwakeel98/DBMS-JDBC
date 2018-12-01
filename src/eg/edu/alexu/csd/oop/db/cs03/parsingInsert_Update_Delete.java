@@ -13,8 +13,8 @@ public class parsingInsert_Update_Delete {
 	private String conditionSign;
 	private String conditionValue;
 	private ArrayList<IHolder> tableDetails;
-	ArrayList<String> value ;
-	ArrayList<String> value1 ;
+	private ArrayList<String> value ;
+	private ArrayList<String> value1 ;
 	//private ArrayList<String> fieldNames;
 	//private ArrayList<String> valuesArgs;
 	public parsingInsert_Update_Delete(String query) {
@@ -30,7 +30,7 @@ public class parsingInsert_Update_Delete {
 		//valuesArgs = new ArrayList<>();
 	}
 	
-	public boolean validity (String query) {
+	public boolean validity () {
 		if(check1()||check2()||check3()) {
 			return true;
 		}else {
@@ -38,7 +38,7 @@ public class parsingInsert_Update_Delete {
 		} 
 	}
 	
-	public boolean check1()	{
+	private boolean check1()	{
 	      String pattern = "^(?i)(DELETE FROM)+(\\s)+(\\w*+)\\s*+(WHERE)+\\s+(\\w*+)((?:[<|>|=]))(\\d|(')(\\w*+)('))$";
 	      // Create a Pattern object
 	      Pattern r = Pattern.compile(pattern);
@@ -58,7 +58,7 @@ public class parsingInsert_Update_Delete {
 	      }	
 	}
 	
-	public boolean check2()	{
+	private boolean check2()	{
 		 String pattern = "^\\s*+(?i)(UPDATE)+\\s*+(\\w*+)\\s*+(?i)(SET)+\\s*+((\\w*+)\\s*+(=)+\\s*+(\\d|(')+(\\w*+)('))+\\s*+(,)\\s*)*+"
 		  	     	+ "(\\w*+)\\s*+(=)+\\s*+(\\d|(')+(\\w*+)('))+\\s*+(?i)(WHERE)+\\s*+(\\w*+)\\s*+((?:[<|>|=]))+\\s*+(\\d|(')(\\w*+)('))\\s*$";
 	      // Create a Pattern object
@@ -66,6 +66,7 @@ public class parsingInsert_Update_Delete {
 	      // Now create matcher object.
 	      Matcher m = r.matcher(this.query);
 	      if (m.find()) {
+	    	  order = "update";
 	    	  String[] attr = this.query.trim().split("(?i)SET");
 	    	  String[] attr3 = attr[1].trim().split("(?i)WHERE");
 	    	  String[] attr1 = attr3[0].trim().split(","); 
@@ -87,7 +88,7 @@ public class parsingInsert_Update_Delete {
 	      }	
 	}
 	
-	public boolean check3()	{
+	private boolean check3()	{
 		 String pattern = "^\\s*+(?i)(INSERT)\\s*+(INTO)+(\\s*)+(\\w*+)\\s*(\\()+\\s*+((\\w*+)\\s*(,)\\s*)*+(\\w*+)\\s*(\\))\\s*+"
 			  		+ "(?i)(VALUES)\\s*+(\\()\\s*+((\\d|(')+"
 			  		+ "(\\w*+)('))+\\s*(,)\\s*)*+(\\d|((')+(\\w*+)(')))+\\s*+(\\))\\s*$";
