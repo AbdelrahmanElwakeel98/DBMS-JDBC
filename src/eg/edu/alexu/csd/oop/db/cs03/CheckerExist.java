@@ -10,7 +10,7 @@ public class CheckerExist {
 	private String order;
 	private ArrayList<IHolder> selectedCols;
 	private ArrayList<String> namesOfCols; 
-	private ArrayList<Boolean> status;
+	private ArrayList<Boolean> status = new ArrayList<>();
 	
 	public CheckerExist(String databaseName, String tableName,  String order, ArrayList<IHolder> selectedCols, ArrayList<String> namesOfCols) {
 		this.databaseName = databaseName;

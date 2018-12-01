@@ -45,11 +45,7 @@ public class test {
 		o[2][1] = "'6'";
 		o[2][2] = "'c'";
 		
-		Object[] namesOfCols = new Object[3];
 		
-		namesOfCols[0] = "col1";
-		namesOfCols[1] = "col2";
-		namesOfCols[2] = "col3";
 		
 		ArrayList<String> namesOfCol = new ArrayList<>();
 
@@ -62,7 +58,7 @@ public class test {
 		selectedCols.add("col3");
 		selectedCols.add("col2");
 		
-		Command c5 = new SelectTableConditional(o, namesOfCols, selectedCols, "col3", ">", "'a'", namesOfCol);
+		Command c5 = new SelectTableConditional(o, namesOfCol, selectedCols, "col3", ">", "'a'", namesOfCol);
 		
 		Object[][] o1 = (Object[][]) c5.execute();
 		

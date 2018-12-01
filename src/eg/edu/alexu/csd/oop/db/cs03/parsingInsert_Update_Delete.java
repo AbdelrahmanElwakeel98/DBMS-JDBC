@@ -20,9 +20,9 @@ public class parsingInsert_Update_Delete {
 	public parsingInsert_Update_Delete(String query) {
 		this.query = query;
 		tableName = null;
-		conditionColumn =null;
-		conditionSign =null;
-		conditionValue =null;
+		conditionColumn =" ";
+		conditionSign = " ";
+		conditionValue =" ";
 		tableDetails = new ArrayList<>();
 		value = new ArrayList<>();
 		value1 = new ArrayList<>();
@@ -39,7 +39,7 @@ public class parsingInsert_Update_Delete {
 	}
 	
 	private boolean check1()	{
-	      String pattern = "^(?i)(DELETE FROM)+(\\s)+(\\w*+)\\s*+(WHERE)+\\s+(\\w*+)((?:[<|>|=]))(\\d|(')(\\w*+)('))$";
+	      String pattern = "^(?i)(DELETE FROM)+(\\s)+(\\w*+)\\s*+(?i)(WHERE)+\\s+(\\w*+)((?:[<|>|=]))(\\d|(')(\\w*+)('))$";
 	      // Create a Pattern object
 	      Pattern r = Pattern.compile(pattern);
 	      // Now create matcher object.
@@ -76,7 +76,7 @@ public class parsingInsert_Update_Delete {
 	    		  String[] attr2 = attr1[i].trim().split("=");
 	    		  withoutS1=attr2[0].replaceAll(" ", "");
 	    		  withoutS2=attr2[1].replaceAll(" ", "");
-				tableDetails.add(new IHolder(withoutS1, withoutS2));
+				tableDetails.add(new IHolder(withoutS1.toLowerCase(), withoutS2));
 				  
 	      }
 	      
@@ -98,7 +98,7 @@ public class parsingInsert_Update_Delete {
 	      Matcher m = r.matcher(this.query);
 	      if (m.find()) {
 	    	  order = "insert";
-	    	  tableName = m.group(3);
+	    	  tableName = m.group(4);
 	    	  String[] attr = this.query.trim().split("\\(");
 	    	  String[] attr3 = attr[1].trim().split("\\)");
 	    	  String[] attr1 = attr3[0].trim().split(",");
@@ -118,7 +118,7 @@ public class parsingInsert_Update_Delete {
 	    	  }
 
 	          for(int i=0 ; i<attr1.length; i++) {
-	        	  tableDetails.add(new IHolder(value.get(i), value1.get(i)));
+	        	  tableDetails.add(new IHolder(value.get(i).toLowerCase(), value1.get(i)));
 	          }
 	          return true;
 	      }	
@@ -134,11 +134,11 @@ public class parsingInsert_Update_Delete {
 	
 	
 	public String getTableName() {
-		return tableName;
+		return tableName.toLowerCase();
 	}
 	
 	public String getConditionColumn() {
-		return conditionColumn;
+		return conditionColumn.toLowerCase();
 	}
 	
 	public String getConditionSign() {

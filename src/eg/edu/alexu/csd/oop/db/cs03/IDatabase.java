@@ -84,8 +84,8 @@ public class IDatabase implements Database {
 			CheckerExist checker = new CheckerExist(this.databaseN, parse.getTableName(), parse.getWhichOrder(), parse.getTableDetails(), new Dtdreader(this.databaseN, parse.getTableName()).read());
 			if (checker.tableIfExist()) {
 				if (checker.colsIfExist()) {
-
-
+					FactoryCommandModify fModify = new FactoryCommandModify(parse.getWhichOrder(), this.databaseN, parse.getTableName(), parse.getTableDetails(), new Read_table(this.databaseN, parse.getTableName()).read_table(), parse.getConditionColumn(), parse.getConditionSign(), parse.getConditionValue());
+                    return fModify.modifyChooser();
 				} else {
 					throw new SQLException ("Invalid SelectedCols");
 				}
@@ -95,8 +95,6 @@ public class IDatabase implements Database {
 		} else {
 			throw new SQLException ("Invalid Query");
 		}         
-
-		return 0;
 	}
 
 }

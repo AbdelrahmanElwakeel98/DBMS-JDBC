@@ -49,7 +49,7 @@ public class InsertTable implements Command {
 			// where j is number of columns
 
 			Element row = doc.createElement("row");
-			
+
 			if (data == null) {
 				for (int j = 0; j < arrayOfinsert.size(); j++) {
 					rootElement.appendChild(row);
@@ -81,13 +81,17 @@ public class InsertTable implements Command {
 			transformer.transform(source, consoleResult);
 		} catch (Exception e) {
 			e.printStackTrace();
+			return null;
 		}
 
-		return true;
-
+		if (data == null) {
+			return 1;
+		} else {
+			return data.length + 1;
+		}
 	}
 
-	public static Element Add_column(String col_name, String col_data, Document doc) {
+	private static Element Add_column(String col_name, String col_data, Document doc) {
 		Element col = doc.createElement(col_name);
 		col.appendChild(doc.createTextNode(col_data));
 
