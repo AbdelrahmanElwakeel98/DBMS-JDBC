@@ -54,7 +54,7 @@ public class Delete_table implements Command {
 							}
 							break;
 						case "<":
-							if (value.equals((String) data[i][j])) {
+							if (((String) data[i][j]).compareTo(value) < 0) {
 								count_delete++;
 								for (int k = 0; k < data[0].length; k++) {
 									flag[i][k] = true;
@@ -62,7 +62,7 @@ public class Delete_table implements Command {
 							}
 							break;
 						case ">":
-							if (((String) data[i][j]).compareTo(value) < 0) {
+							if (((String) data[i][j]).compareTo(value) > 0) {
 								count_delete++;
 								for (int k = 0; k < data[0].length; k++) {
 									flag[i][k] = true;
