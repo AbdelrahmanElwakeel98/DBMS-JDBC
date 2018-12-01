@@ -67,11 +67,62 @@ public class IDatabase implements Database {
 		}
 
 
-	}
+	} 
 
 	@Override
 	public Object[][] executeQuery(String query) throws SQLException {
-		// TODO Auto-generated method stub
+     parsingSelect parse = new parsingSelect(query);
+		
+		if(parse.validity()) {
+			
+			if(parse.conditonExist()) {
+				checkerSelect checker = new checkerSelect(this.databaseN, parse.getTableName(), 
+						 parse.getTableDetails(), new Dtdreader(this.databaseN,
+								parse.getTableName()).read(),parse.getConditionColumn());
+				if(checker.colOfConditionIfExist()) {
+					if (checker.tableIfExist()) {
+						if(parse.getWhichOrder()=="select") {
+						if (checker.colsIfExist()) {
+
+  
+							
+							
+						} else {
+							throw new SQLException ("Invalid SelectedCols");
+						}
+						}
+					} else {
+						throw new SQLException ("Invalid Table");
+					}
+				}
+				else {
+					throw new SQLException ("Invalid Columnof the condition");
+				}
+			}else {
+				checkerSelect checker = new checkerSelect(this.databaseN, parse.getTableName(), 
+						 parse.getTableDetails(), new Dtdreader(this.databaseN,
+								parse.getTableName()).read());
+				
+					if (checker.tableIfExist()) {
+						if(parse.getWhichOrder()=="select") {
+						if (checker.colsIfExist()) {
+
+  
+							
+							
+						} else {
+							throw new SQLException ("Invalid SelectedCols");
+						}
+						}
+					} else {
+						throw new SQLException ("Invalid Table");
+					}
+				
+			}
+			
+		}else {
+			throw new SQLException ("Invalid Query");
+		}
 		return null;
 	}
 

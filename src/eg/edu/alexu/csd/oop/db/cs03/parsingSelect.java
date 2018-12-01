@@ -25,7 +25,7 @@ public class parsingSelect {
 		col = new ArrayList<>();
 	}
 	
-	public boolean validity (String query) {
+	public boolean validity () {
 		if(check1()||check2()) {
 			return true;
 		}else {
@@ -34,9 +34,8 @@ public class parsingSelect {
 	}
 	
     private boolean check1()	{
-    	 String pattern = "^\\s*(?i)(SELECT)\\s*+((\\w*+)\\s*+(,)+\\s*)*+(\\w*+)\\s*+"
-    	 		+ "(?i)(FROM)\\s*+(\\w*+)\\s*+((WHERE)+\\s*+"
- 		        + "(\\w*+)\\s*+((?:[<|>|=]))\\s*+(\\d)+\\s*)*$";
+    	 String pattern = "^\\s*(?i)(SELECT)\\s*+((\\w*+)\\s*+(,)+\\s*)*+(\\w*+)\\s*+(?i)(FROM)\\s*+(\\w*+)\\s*+"
+    	 		+ "((?i)(WHERE)+\\s*+(\\w*+)\\s*+((?:[<|>|=]))\\s*+(\\d)+\\s*)*$";
 	      // Create a Pattern object
 	      Pattern r = Pattern.compile(pattern);
 	      // Now create matcher object.
@@ -66,7 +65,8 @@ public class parsingSelect {
 	}
   
     private boolean check2()	{
-    	  String pattern = "^\\s*(?i)(SELECT)\\s*+(\\*)\\s*+(?i)(FROM)\\s*+(\\w*+)\\s*$";
+    	  String pattern = "^\\s*(?i)(SELECT)\\s*+(\\*)\\s*+(?i)(FROM)\\s*+(\\w*+)"
+    	  		+ "\\s*((?i)(WHERE)+\\s*+(\\w*+)\\s*+((?:[<|>|=]))\\s*+(\\d)+\\s*)*$";
 	      // Create a Pattern object
 	      Pattern r = Pattern.compile(pattern);
 	      // Now create matcher object.
@@ -74,6 +74,12 @@ public class parsingSelect {
 	      if (m.find()) {
 	    	  order="select*from";
 	    	  tableName = m.group(4);
+	    	  if(m.group(6)!=null) {
+		    		 conditonExist=1;
+		  		     conditionColumn = m.group(7);
+		  		     conditionSign = m.group(8);
+		  		     conditionValue = m.group(9);
+		    	  }
 	          return true;
 	      }	
 	      else {
