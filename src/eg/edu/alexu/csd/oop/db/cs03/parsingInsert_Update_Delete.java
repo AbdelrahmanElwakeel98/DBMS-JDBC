@@ -39,7 +39,8 @@ public class parsingInsert_Update_Delete {
 	}
 	
 	private boolean check1()	{
-	      String pattern = "^(?i)(DELETE FROM)+(\\s)+(\\w*+)\\s*+(?i)(WHERE)+\\s+(\\w*+)((?:[<|>|=]))(\\d|(')(\\w*+)('))$";
+		String pattern = "^\\s*(?i)(DELETE)\\s*(FROM)+(\\s*)+(\\w*+)\\s*+((?i)(WHERE)+\\s*+"
+				+ "(\\w*+)\\s*+((?:[<|>|=]))\\s*+(\\d|(')(\\w*+)('))\\s*)*$";
 	      // Create a Pattern object
 	      Pattern r = Pattern.compile(pattern);
 	      // Now create matcher object.
@@ -47,10 +48,12 @@ public class parsingInsert_Update_Delete {
 	      if (m.find()) {
 	    	  order = "delete";
 	    	  tableName = m.group(3);            
-	  		  conditionColumn = m.group(5);
-	  		  conditionSign = m.group(6);
-	  		  conditionValue = m.group(7);
-	    	  
+	    	  if(m.group(4)!=null) {
+		  		     conditionColumn = m.group(6);
+		  		     conditionSign = m.group(7);
+		  		     conditionValue = m.group(8);
+		    	  }
+	       
 	          return true;
 	      }	
 	      else {

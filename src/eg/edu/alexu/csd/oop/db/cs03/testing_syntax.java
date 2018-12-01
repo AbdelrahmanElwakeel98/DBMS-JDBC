@@ -8,38 +8,16 @@ import java.util.regex.Pattern;
 public class testing_syntax {
 
 	public static void main(String[] args) {
-		String line = "INSERT INTO table_name1  VALUES ('value1', 'value3', 4) " ;
-		String pattern = "^\\s*+(?i)(INSERT)\\s*+(INTO)+(\\s*)+(\\w*+)\\s*((\\()+\\s*+((\\w*+)\\s*(,)\\s*)*+(\\w*+)\\s*(\\))\\s*)*+"
-		  		+ "(?i)(VALUES)\\s*+(\\()\\s*+((\\d|(')+"
-		  		+ "(\\w*+)('))+\\s*(,)\\s*)*+(\\d|((')+(\\w*+)(')))+\\s*+(\\))\\s*$";
-      // Create a Pattern object
-      Pattern r = Pattern.compile(pattern);
-      // Now create matcher object.
-      Matcher m = r.matcher(line);
-      if (m.find()) {
-    	  String[] attr = line.trim().split("\\(");
-    	  String[] attr3 = attr[1].trim().split("\\)");
-    	  String[] attr1 = attr3[0].trim().split(",");
-    	  String[] attr4 = attr3[0].trim().split(",");
-    	  String withoutS1 = null ;
-    	  ArrayList<String> value = new ArrayList<String>() ;
-		for (int i = 0; i < attr1.length; i++) {
-			  value.add(null);
-			  System.out.println(value.get(i));
-    	  }
-    	  attr = line.trim().split("(?i)VALUES");
-    	  attr4 = attr[1].trim().split("\\(");
-    	  attr3 = attr4[1].trim().split("\\)");
-    	  attr1 = attr3[0].trim().split(",");
-    	  for (int i = 0; i < attr1.length; i++) { 
-    		  withoutS1=attr1[i].replaceAll(" ", "");
-    		  System.out.println(withoutS1);
-    	  }
-
-
-      
-      }
-}
+		String line = "  DELETE   From   table_name1   where kk=9" ;
+		 String pattern = "^\\s*(?i)(DELETE)\\s*(FROM)+\\s*+(\\w*+)\\s*+((?i)(WHERE)+\\s*+(\\w*+)\\s*+((?:[<|>|=]))\\s*+(\\d|(')(\\w*+)('))\\s*)*$";
+	      // Create a Pattern object
+	      Pattern r = Pattern.compile(pattern);
+	      // Now create matcher object.
+	      Matcher m = r.matcher(line);
+	      if (m.find()) {
+	      System.out.println(m.group(3));
+ }
+	}
 
    void create_database() {
 	      String line = "Create dataBASE jk_f8j" ;
