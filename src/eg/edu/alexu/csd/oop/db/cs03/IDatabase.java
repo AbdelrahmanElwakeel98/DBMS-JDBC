@@ -137,7 +137,7 @@ public class IDatabase implements Database {
 		if (parse.validity()) {
 			CheckerExist checker = new CheckerExist(this.databaseN, parse.getTableName(), parse.getWhichOrder(), parse.getTableDetails(), new Dtdreader(this.databaseN, parse.getTableName()).read());
 			if (checker.tableIfExist()) {
-				if (checker.colsIfExist()) {
+				if (parse.getTableDetails().get(0).getFieldNames() == null || checker.colsIfExist()) {
 					FactoryCommandModify fModify = new FactoryCommandModify(parse.getWhichOrder(), this.databaseN, parse.getTableName(), parse.getTableDetails(), new Read_table(this.databaseN, parse.getTableName()).read_table(), parse.getConditionColumn(), parse.getConditionSign(), parse.getConditionValue());
                     return fModify.modifyChooser();
 				} else {

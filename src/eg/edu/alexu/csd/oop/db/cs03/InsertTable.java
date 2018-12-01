@@ -47,38 +47,72 @@ public class InsertTable implements Command {
 			Element rootElement = doc.createElement(tableName);
 			doc.appendChild(rootElement);
 			// where j is number of columns
-			if(arrayOfinsert == null) {
+			if (arrayOfinsert == null) {
 				return 0;
 			}
-			if (data == null) {
-				Element row = doc.createElement("row");
-				rootElement.appendChild(row);
-				for (int j = 0; j < arrayOfinsert.size(); j++) {
-					for (int k = 0; k < col_names.size(); k++) {
-						if (arrayOfinsert.get(j).getFieldNames().equals(col_names.get(k))) {
-							System.out.println(col_names.get(k));
-							row.appendChild(Add_column(col_names.get(k), arrayOfinsert.get(j).getDataTypes(), doc));
+			if (arrayOfinsert.get(0).getFieldNames() == null && arrayOfinsert.get(0).getDataTypes() != null) {
+				if (arrayOfinsert.size() == col_names.size()) {
+					if (data == null) {
+						Element row = doc.createElement("row");
+						rootElement.appendChild(row);
+						for (int j = 0; j < arrayOfinsert.size(); j++) {
 
+							row.appendChild(Add_column(col_names.get(j), arrayOfinsert.get(j).getDataTypes(), doc));
+
+						}
+					} else {
+						for (int i = 0; i < data.length + 1; i++) {
+							Element row = doc.createElement("row");
+							rootElement.appendChild(row);
+
+							for (int j = 0; j < arrayOfinsert.size(); j++) {
+								if (i == data.length) {
+
+									row.appendChild(
+											Add_column(col_names.get(j), arrayOfinsert.get(j).getDataTypes(), doc));
+
+								} else {
+									row.appendChild(Add_column(col_names.get(j), (String) data[i][j], doc));
+								}
+
+							}
 						}
 					}
+
 				}
 			} else {
-				for (int i = 0; i < data.length + 1; i++) {
+
+				if (data == null) {
 					Element row = doc.createElement("row");
 					rootElement.appendChild(row);
-
 					for (int j = 0; j < arrayOfinsert.size(); j++) {
-						if (i == data.length) {
-							for (int k = 0; k < col_names.size(); k++) {
-								if (arrayOfinsert.get(j).getFieldNames().equals(col_names.get(k))) {
-									row.appendChild(Add_column(col_names.get(k), arrayOfinsert.get(j).getDataTypes(), doc));
+						for (int k = 0; k < col_names.size(); k++) {
+							if (arrayOfinsert.get(j).getFieldNames().equals(col_names.get(k))) {
+								System.out.println(col_names.get(k));
+								row.appendChild(Add_column(col_names.get(k), arrayOfinsert.get(j).getDataTypes(), doc));
 
-								}
 							}
-						} else {
-							row.appendChild(Add_column(col_names.get(j), (String) data[i][j], doc));
 						}
+					}
+				} else {
+					for (int i = 0; i < data.length + 1; i++) {
+						Element row = doc.createElement("row");
+						rootElement.appendChild(row);
 
+						for (int j = 0; j < arrayOfinsert.size(); j++) {
+							if (i == data.length) {
+								for (int k = 0; k < col_names.size(); k++) {
+									if (arrayOfinsert.get(j).getFieldNames().equals(col_names.get(k))) {
+										row.appendChild(
+												Add_column(col_names.get(k), arrayOfinsert.get(j).getDataTypes(), doc));
+
+									}
+								}
+							} else {
+								row.appendChild(Add_column(col_names.get(j), (String) data[i][j], doc));
+							}
+
+						}
 					}
 				}
 			}
@@ -94,7 +128,9 @@ public class InsertTable implements Command {
 			// Output to console for testing
 			StreamResult consoleResult = new StreamResult(System.out);
 			transformer.transform(source, consoleResult);
-		} catch (Exception e) {
+		} catch (
+
+		Exception e) {
 			e.printStackTrace();
 			return null;
 		}

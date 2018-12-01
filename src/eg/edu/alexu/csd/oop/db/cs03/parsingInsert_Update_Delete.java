@@ -146,8 +146,9 @@ public class parsingInsert_Update_Delete {
 		    		  value1.add(withoutS1);
 		    	  }
 
+		    	  
 		          for(int i=0 ; i<attr1.length; i++) {
-		        	  tableDetails.add(new IHolder(value.get(i).toLowerCase() , value1.get(i).toLowerCase() ));
+		        	  tableDetails.add(new IHolder(value.get(i) , value1.get(i).toLowerCase() ));
 		          }  
 	    		  
 	    	  }
