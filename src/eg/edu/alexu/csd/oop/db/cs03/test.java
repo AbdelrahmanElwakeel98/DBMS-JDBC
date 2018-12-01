@@ -35,7 +35,7 @@ public class test {
 		
 		o[0][0] = "'a'";
 		o[0][1] = "'b'";
-		o[0][2] = "'c'";
+		o[0][2] = "3";
 		
 		o[1][0] = "'1'";
 		o[1][1] = "'2'";
@@ -43,7 +43,7 @@ public class test {
 		
 		o[2][0] = "'11'";
 		o[2][1] = "'22'";
-		o[2][2] = "'c'";
+		o[2][2] = "3";
 		
 		Object[] namesOfCols = new Object[3];
 		
@@ -62,7 +62,7 @@ public class test {
 		selectedCols.add("col3");
 		selectedCols.add("col2");
 		
-		Command c5 = new SelectTableConditional(o, namesOfCols, selectedCols, "col3", "=", "'c'", namesOfCol);
+		Command c5 = new SelectTableConditional(o, namesOfCols, selectedCols, "col3", ">", "2", namesOfCol);
 		
 		Object[][] o1 = (Object[][]) c5.execute();
 		

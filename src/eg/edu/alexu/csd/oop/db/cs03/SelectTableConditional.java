@@ -55,9 +55,11 @@ public class SelectTableConditional implements Command {
 			if (this.target.equals(this.namesOfCols[i])) {
 				count = 0;
 				for (int x = 0; x < this.detailsOfTable.length; x++) {
+					if (detailsOfTable[x][i].toString().charAt(0) != '\'') {
 					if (Integer.parseInt((String) this.detailsOfTable[x][i]) < Integer.parseInt(value)) {
 						count++;
 					}
+				}
 				}
 			}
 		}
@@ -67,9 +69,14 @@ public class SelectTableConditional implements Command {
 			if (this.target.equals(this.namesOfCols[i])) {
 				count = 0;
 				for (int x = 0; x < this.detailsOfTable.length; x++) {
-					if (Integer.parseInt((String) this.detailsOfTable[x][i]) > Integer.parseInt(value)) {
-						count++;
+
+					if (detailsOfTable[x][i].toString().charAt(0) != '\'') {
+						if (Integer.parseInt((String) this.detailsOfTable[x][i]) > Integer.parseInt(value)) {
+							count++;
+						}
 					}
+
+
 				}
 			}
 		}
@@ -101,6 +108,7 @@ public class SelectTableConditional implements Command {
 		case "<" : for (int i = 0; i < this.namesOfCols.length; i++) {
 			if (this.target.equals(this.namesOfCols[i])) {
 				for (int x = 0; x < this.detailsOfTable.length; x++) {
+					if (detailsOfTable[x][i].toString().charAt(0) != '\'') {
 					if (Integer.parseInt((String) this.detailsOfTable[x][i]) < Integer.parseInt(value)) {
 						for (int l = 0; l < selectedCols.size(); l++) {
 							for (int k = 0; k < detailsOfTable[0].length; k++) {
@@ -112,6 +120,7 @@ public class SelectTableConditional implements Command {
 						}
 					}
 				}
+				}
 			}
 		}
 		break;
@@ -119,6 +128,7 @@ public class SelectTableConditional implements Command {
 		case ">" : for (int i = 0; i < this.namesOfCols.length; i++) {
 			if (this.target.equals(this.namesOfCols[i])) {
 				for (int x = 0; x < this.detailsOfTable.length; x++) {
+					if (detailsOfTable[x][i].toString().charAt(0) != '\'') {
 					if (Integer.parseInt((String) this.detailsOfTable[x][i]) > Integer.parseInt(value)) {
 						for (int l = 0; l < selectedCols.size(); l++) {
 							for (int k = 0; k < detailsOfTable[0].length; k++) {
@@ -128,6 +138,7 @@ public class SelectTableConditional implements Command {
 							}
 						}
 					}
+				}
 				}
 			}
 		}
@@ -141,14 +152,14 @@ public class SelectTableConditional implements Command {
 	    for (int i = 0; i < checker.length; i++) {
 	    	for (int j = 0; j < checker[0].length; j++) {
 	    		if (checker[i][j] == true) {
-	    			
+
 	    			if (flag != i && i != 0) {
 	    				x++;
-	    			} 
-	    			
+	    			}
+
 	    			selectedTable[x][y] = detailsOfTable[i][j];
 	    			y++;
-	    			
+
 	    			flag = i;
 	    		}
 	    	}
