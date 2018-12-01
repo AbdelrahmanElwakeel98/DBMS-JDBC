@@ -39,7 +39,7 @@ public class parsingInsert_Update_Delete {
 	}
 	
 	private boolean check1()	{
-		String pattern = "^\\s*(?i)(DELETE)\\s*(FROM)+(\\s*)+(\\w*+)\\s*+((?i)(WHERE)+\\s*+"
+		String pattern = "^\\s*(?i)(DELETE)\\s*(FROM)\\s*+(\\w*+)\\s*+((?i)(WHERE)+\\s*+"
 				+ "(\\w*+)\\s*+((?:[<|>|=]))\\s*+(\\d|(')(\\w*+)('))\\s*)*$";
 	      // Create a Pattern object
 	      Pattern r = Pattern.compile(pattern);

@@ -1,5 +1,6 @@
 package eg.edu.alexu.csd.oop.db.cs03;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import eg.edu.alexu.csd.oop.db.Command;
@@ -35,6 +36,13 @@ public class Delete_table implements Command {
 		dtdreader = new Dtdreader(databaseName, tableName);
 		col_names = dtdreader.read();
 		flag = new boolean[data.length][data[0].length];
+		if(col_name.equals(" ")) {
+			File dir = new File (databaseName +  System.getProperty("file.separator") + tableName + ".xml");
+			
+			dir.delete();
+			dir.mkdirs();
+			return data.length;
+		}
 
 		for (int i = 0; i < col_names.size(); i++) {
 			if (col_names.get(i).equals(col_name)) {
