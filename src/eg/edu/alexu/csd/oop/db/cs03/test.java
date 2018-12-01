@@ -33,17 +33,17 @@ public class test {
 		
 		Object[][] o = new Object[3][3];
 		
-		o[0][0] = "'a'";
-		o[0][1] = "'b'";
-		o[0][2] = "3";
+		o[0][0] = "'1'";
+		o[0][1] = "'2'";
+		o[0][2] = "'a'";
 		
-		o[1][0] = "'1'";
-		o[1][1] = "'2'";
-		o[1][2] = "'3'";
+		o[1][0] = "'3'";
+		o[1][1] = "'4'";
+		o[1][2] = "'b'";
 		
-		o[2][0] = "'11'";
-		o[2][1] = "'22'";
-		o[2][2] = "3";
+		o[2][0] = "'5'";
+		o[2][1] = "'6'";
+		o[2][2] = "'c'";
 		
 		Object[] namesOfCols = new Object[3];
 		
@@ -62,7 +62,7 @@ public class test {
 		selectedCols.add("col3");
 		selectedCols.add("col2");
 		
-		Command c5 = new SelectTableConditional(o, namesOfCols, selectedCols, "col3", ">", "2", namesOfCol);
+		Command c5 = new SelectTableConditional(o, namesOfCols, selectedCols, "col3", ">", "'a'", namesOfCol);
 		
 		Object[][] o1 = (Object[][]) c5.execute();
 		
