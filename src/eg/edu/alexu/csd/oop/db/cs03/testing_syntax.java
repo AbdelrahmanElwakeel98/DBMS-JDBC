@@ -8,32 +8,37 @@ import java.util.regex.Pattern;
 public class testing_syntax {
 
 	public static void main(String[] args) {
-		 String line = "UPDATE table_name1 SET column_name1='11111111' ,dd='33' where mm =6" ;
-		   String pattern = "^\\s*+(?i)(UPDATE)+\\s*+(\\w*+)\\s*+(?i)(SET)+\\s*+((\\w*+)\\s*+(=)+\\s*+"
-		   		+ "(\\d|(')+(\\w*+)('))+\\s*+(,)\\s*)*+(\\w*+)\\s*+(=)+\\s*+(\\d|(')+(\\w*+)('))+\\s*+"
-		   		+ "((?i)(WHERE)+\\s*+(\\w*+)\\s*+((?:[<|>|=]))+\\s*+(\\d|(')(\\w*+)('))\\s*)*$";
-		      // Create a Pattern object
-		      Pattern r = Pattern.compile(pattern);
-		      // Now create matcher object.
-		      Matcher m = r.matcher(line);
-		      if (m.find()) {
-		    	  ArrayList<String> fieldNames = new ArrayList<>();
-		    	  ArrayList<String> valuesArgs = new ArrayList<>();
-		    	  String[] attr = line.trim().split("(?i)SET");
-		    	  String[] attr3 = attr[1].trim().split("(?i)WHERE");
-		    	  String[] attr1 = attr3[0].trim().split(","); 
-		    	  String withoutS1 = null ;
-		    	  String withoutS2 = null ;
-		    	  for (int i = 0; i < attr1.length; i++) {
-		    		  String[] attr2 = attr1[i].trim().split("=");
-		    		  withoutS1=attr2[0].replaceAll(" ", "");
-		    		  withoutS2=attr2[1].replaceAll(" ", "");
-		    		  
-}             
-		    	  System.out
-					.println(m.group(19));
-		    	  }
+		String line = "INSERT INTO table_name1  VALUES ('value1', 'value3', 4) " ;
+		String pattern = "^\\s*+(?i)(INSERT)\\s*+(INTO)+(\\s*)+(\\w*+)\\s*((\\()+\\s*+((\\w*+)\\s*(,)\\s*)*+(\\w*+)\\s*(\\))\\s*)*+"
+		  		+ "(?i)(VALUES)\\s*+(\\()\\s*+((\\d|(')+"
+		  		+ "(\\w*+)('))+\\s*(,)\\s*)*+(\\d|((')+(\\w*+)(')))+\\s*+(\\))\\s*$";
+      // Create a Pattern object
+      Pattern r = Pattern.compile(pattern);
+      // Now create matcher object.
+      Matcher m = r.matcher(line);
+      if (m.find()) {
+    	  String[] attr = line.trim().split("\\(");
+    	  String[] attr3 = attr[1].trim().split("\\)");
+    	  String[] attr1 = attr3[0].trim().split(",");
+    	  String[] attr4 = attr3[0].trim().split(",");
+    	  String withoutS1 = null ;
+    	  ArrayList<String> value = new ArrayList<String>() ;
+		for (int i = 0; i < attr1.length; i++) {
+			  value.add(null);
+			  System.out.println(value.get(i));
+    	  }
+    	  attr = line.trim().split("(?i)VALUES");
+    	  attr4 = attr[1].trim().split("\\(");
+    	  attr3 = attr4[1].trim().split("\\)");
+    	  attr1 = attr3[0].trim().split(",");
+    	  for (int i = 0; i < attr1.length; i++) { 
+    		  withoutS1=attr1[i].replaceAll(" ", "");
+    		  System.out.println(withoutS1);
+    	  }
 
+
+      
+      }
 }
 
    void create_database() {

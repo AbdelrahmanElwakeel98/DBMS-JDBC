@@ -95,9 +95,9 @@ public class parsingInsert_Update_Delete {
 	}
 	
 	private boolean check3()	{
-		 String pattern = "^\\s*+(?i)(INSERT)\\s*+(INTO)+(\\s*)+(\\w*+)\\s*(\\()+\\s*+((\\w*+)\\s*(,)\\s*)*+(\\w*+)\\s*(\\))\\s*+"
-			  		+ "(?i)(VALUES)\\s*+(\\()\\s*+((\\d|(')+"
-			  		+ "(\\w*+)('))+\\s*(,)\\s*)*+(\\d|((')+(\\w*+)(')))+\\s*+(\\))\\s*$";
+		String pattern = "^\\s*+(?i)(INSERT)\\s*+(INTO)+(\\s*)+(\\w*+)\\s*((\\()+\\s*+((\\w*+)\\s*(,)\\s*)*+(\\w*+)\\s*(\\))\\s*)*+"
+		  		+ "(?i)(VALUES)\\s*+(\\()\\s*+((\\d|(')+"
+		  		+ "(\\w*+)('))+\\s*(,)\\s*)*+(\\d|((')+(\\w*+)(')))+\\s*+(\\))\\s*$";
 	      // Create a Pattern object
 	      Pattern r = Pattern.compile(pattern);
 	      // Now create matcher object.
@@ -105,27 +105,54 @@ public class parsingInsert_Update_Delete {
 	      if (m.find()) {
 	    	  order = "insert";
 	    	  tableName = m.group(4);
-	    	  String[] attr = this.query.trim().split("\\(");
-	    	  String[] attr3 = attr[1].trim().split("\\)");
-	    	  String[] attr1 = attr3[0].trim().split(",");
-	    	  String[] attr4 = attr3[0].trim().split(",");
-	    	  String withoutS1 = null ;
-	    	  for (int i = 0; i < attr1.length; i++) { 
-	    		  withoutS1=attr1[i].replaceAll(" ", "");
-				  value.add(withoutS1);
-	    	  }
-	    	  attr = this.query.trim().split("(?i)VALUES");
-	    	  attr4 = attr[1].trim().split("\\(");
-	    	  attr3 = attr4[1].trim().split("\\)");
-	    	  attr1 = attr3[0].trim().split(",");
-	    	  for (int i = 0; i < attr1.length; i++) { 
-	    		  withoutS1=attr1[i].replaceAll(" ", "");
-	    		  value1.add(withoutS1);
-	    	  }
+	    	  if(m.group(5)!=null) {
+	    		  String[] attr = this.query.trim().split("\\(");
+		    	  String[] attr3 = attr[1].trim().split("\\)");
+		    	  String[] attr1 = attr3[0].trim().split(",");
+		    	  String[] attr4 = attr3[0].trim().split(",");
+		    	  String withoutS1 = null ;
+		    	  for (int i = 0; i < attr1.length; i++) { 
+		    		  withoutS1=attr1[i].replaceAll(" ", "");
+					  value.add(withoutS1);
+		    	  }
+		    	  attr = this.query.trim().split("(?i)VALUES");
+		    	  attr4 = attr[1].trim().split("\\(");
+		    	  attr3 = attr4[1].trim().split("\\)");
+		    	  attr1 = attr3[0].trim().split(",");
+		    	  for (int i = 0; i < attr1.length; i++) { 
+		    		  withoutS1=attr1[i].replaceAll(" ", "");
+		    		  value1.add(withoutS1);
+		    	  }
 
-	          for(int i=0 ; i<attr1.length; i++) {
-	        	  tableDetails.add(new IHolder(value.get(i).toLowerCase() , value1.get(i).toLowerCase() ));
-	          }
+		          for(int i=0 ; i<attr1.length; i++) {
+		        	  tableDetails.add(new IHolder(value.get(i).toLowerCase() , value1.get(i).toLowerCase() ));
+		          }  
+	    	  }
+	    	  else {
+	    		  String[] attr = this.query.trim().split("\\(");
+		    	  String[] attr3 = attr[1].trim().split("\\)");
+		    	  String[] attr1 = attr3[0].trim().split(",");
+		    	  String[] attr4 = attr3[0].trim().split(",");
+		    	  String withoutS1 = null ;
+		    	  for (int i = 0; i < attr1.length; i++) {
+					  value.add(null);
+		    	  }
+		    	  attr = this.query.trim().split("(?i)VALUES");
+		    	  attr4 = attr[1].trim().split("\\(");
+		    	  attr3 = attr4[1].trim().split("\\)");
+		    	  attr1 = attr3[0].trim().split(",");
+		    	  for (int i = 0; i < attr1.length; i++) { 
+		    		  withoutS1=attr1[i].replaceAll(" ", "");
+		    		  value1.add(withoutS1);
+		    	  }
+
+		          for(int i=0 ; i<attr1.length; i++) {
+		        	  tableDetails.add(new IHolder(value.get(i).toLowerCase() , value1.get(i).toLowerCase() ));
+		          }  
+	    		  
+	    	  }
+	    	  
+	          
 	          return true;
 	      }	
 	      else {
