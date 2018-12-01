@@ -73,7 +73,7 @@ public class test {
 		
 		//CommandUpdate c4 = new InsertTable("PoliceStation", "NewTable", arraylist1);
 
-		//c1.execute();
+		c.execute();
 		
 		//Database db = new IDatabase();
 		

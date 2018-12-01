@@ -59,6 +59,9 @@ public class IDatabase implements Database {
 		parsingCreate_Drop parse = new parsingCreate_Drop(query);
 
 		if (parse.validity()) {
+			if ((parse.getWhichOrder() + " " + parse.getDatabaseOrTable()).equals("create database")) {
+				this.databaseN = parse.getName();
+			}
 			FactoryCommand f = new FactoryCommand(parse.getWhichOrder() + " " + parse.getDatabaseOrTable(), this.databaseN, parse.getName(), parse.getTableDetails());
 
             return f.commandChooser();
@@ -73,7 +76,7 @@ public class IDatabase implements Database {
 	public Object[][] executeQuery(String query) throws SQLException {
      parsingSelect parse = new parsingSelect(query);
 		
-		if(parse.validity()) {
+		/*if(parse.validity()) {
 			
 			if(parse.conditonExist()) {
 				checkerSelect checker = new checkerSelect(this.databaseN, parse.getTableName(), 
@@ -122,7 +125,7 @@ public class IDatabase implements Database {
 			
 		}else {
 			throw new SQLException ("Invalid Query");
-		}
+		}*/
 		return null;
 	}
 

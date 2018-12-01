@@ -19,12 +19,8 @@ public class CreateDatabase implements Command {
 	public Object execute() {
 
 		dir = new File (this.databaseName);
-
-		if (!dir.exists()) {
-			dir.mkdirs();
-			return true;
-		} else {
-			return false;
-		}
+		
+		dir.mkdirs();
+		return true;
 	}
 }

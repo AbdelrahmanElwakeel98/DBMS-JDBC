@@ -19,7 +19,7 @@ public class parsingCreate_Drop {
 		this.query = query;
 		order = null;
 		executeOn = null;
-		name = null;
+		name = " ";
 		tableDetails = new ArrayList<>();
 	}
 
@@ -82,7 +82,7 @@ public class parsingCreate_Drop {
 	}
 
    private boolean check4()	{
-	      String pattern ="^(?i)\\s*(CREATE)\\s*(TABLE)\\s*(\\w*+)\\s*+"
+	      String pattern ="^(?i)\\s*(?i)(CREATE)\\s*(TABLE)\\s*(\\w*+)\\s*+"
 		      		+ "(\\()\\s*(\\w+\\s*+(?i)(varchar|int)\\s*(,)\\s*)*(\\w+\\s*+(?i)(varchar|int)\\s*)"
 		      		+ "(\\))\\s*(;)?\\s*$";
 	      // Create a Pattern object
@@ -100,8 +100,7 @@ public class parsingCreate_Drop {
 	    	  for (int i = 0; i < attr1.length; i++) {
 	    		  String[] attr2 = attr1[i].trim().split("\\s+");
 
-				tableDetails.add(new IHolder(attr2[0], attr2[1]));
-				  System.out.println(attr2[1]);
+				tableDetails.add(new IHolder(attr2[0].toLowerCase() , attr2[1]));
 	    	  }
 
 	          return true;
@@ -121,7 +120,7 @@ public class parsingCreate_Drop {
 	}
 
 	public String getName() {
-		return name;
+		return name.toLowerCase();
 	}
 
 	public ArrayList<IHolder> getTableDetails(){
