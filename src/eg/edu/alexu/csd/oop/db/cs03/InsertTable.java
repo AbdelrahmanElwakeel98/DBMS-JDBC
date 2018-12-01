@@ -88,7 +88,6 @@ public class InsertTable implements Command {
 					for (int j = 0; j < arrayOfinsert.size(); j++) {
 						for (int k = 0; k < col_names.size(); k++) {
 							if (arrayOfinsert.get(j).getFieldNames().equals(col_names.get(k))) {
-								System.out.println(col_names.get(k));
 								row.appendChild(Add_column(col_names.get(k), arrayOfinsert.get(j).getDataTypes(), doc));
 
 							}
@@ -118,6 +117,11 @@ public class InsertTable implements Command {
 			}
 
 			// write the content into xml file
+
+			File dir = new File(databaseName + System.getProperty("file.separator") + tableName + ".xml");
+
+			dir.delete();
+			dir.mkdirs();
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
 			DOMSource source = new DOMSource(doc);
@@ -125,9 +129,6 @@ public class InsertTable implements Command {
 					new File(databaseName + System.getProperty("file.separator") + tableName + ".xml"));
 			transformer.transform(source, result);
 
-			// Output to console for testing
-			StreamResult consoleResult = new StreamResult(System.out);
-			transformer.transform(source, consoleResult);
 		} catch (
 
 		Exception e) {

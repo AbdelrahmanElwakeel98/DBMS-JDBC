@@ -58,7 +58,6 @@ public class CreateTable implements Command {
 			} else {
 				
 				col = col + "," + this.cols.get(i).getFieldNames();
-				System.out.println(col);
 			}
 		}
 		
@@ -83,7 +82,6 @@ public class CreateTable implements Command {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	          System.out.println("File written Successfully");
 	          
 		   try{
 		      if(bw!=null)

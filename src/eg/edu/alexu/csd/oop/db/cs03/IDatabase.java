@@ -18,12 +18,7 @@ public class IDatabase implements Database {
 			try {
 
 				this.databaseN = databaseName;
-
-				
-				boolean x = executeStructureQuery("DROP DATABASE" + " " + databaseName);
-				
-				System.out.println(x);
-
+				executeStructureQuery("DROP DATABASE" + " " + databaseName);
 				if (executeStructureQuery("CREATE DATABASE" + " " + databaseName)) {
 					return dir.getAbsolutePath();
 				} else {

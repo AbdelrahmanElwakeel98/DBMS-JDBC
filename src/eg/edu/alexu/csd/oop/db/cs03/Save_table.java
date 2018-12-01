@@ -98,10 +98,6 @@ public class Save_table {
 			DOMSource source = new DOMSource(doc);
 			StreamResult result = new StreamResult(new File(databaseName +  System.getProperty("file.separator") + tableName + ".xml"));
 			transformer.transform(source, result);
-
-			// Output to console for testing
-			StreamResult consoleResult = new StreamResult(System.out);
-			transformer.transform(source, consoleResult);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

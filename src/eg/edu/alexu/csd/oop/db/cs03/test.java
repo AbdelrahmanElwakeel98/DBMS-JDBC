@@ -25,7 +25,7 @@ public class test {
 		arraylist1.add(new IHolder("id", "4"));
 
 		Command c = new CreateDatabase( "PoliceStation");
-		Command c1 = new DropDatabase( "PoliceStation" );
+		Command c1 = new DropDatabase( "sample" +  System.getProperty("file.separator") + "testdb" );
 		Command c2 = new CreateTable("NewTable", "PoliceStation", arraylist);
 		Command c3 = new DropTable("NewTable", "PoliceStation");
 		
@@ -73,13 +73,13 @@ public class test {
 		
 		//CommandUpdate c4 = new InsertTable("PoliceStation", "NewTable", arraylist1);
 
-		c.execute();
+		c1.execute();
 		
-		//Database db = new IDatabase();
+		Database db = new IDatabase();
 		
-		//db.executeStructureQuery("CREATE DATABASE      TestDB ");
+		db.executeStructureQuery("CREATE   TABLE   table_name1(column_name1 varchar , column_name2    int,  column_name3 varchar)       ");
 		
-		
+			
 		
 	//	db.executeStructureQuery("CREATE   TABLE   table_name1(column_name1 varchar , column_name2    int,  column_name3 varchar)       ");
 

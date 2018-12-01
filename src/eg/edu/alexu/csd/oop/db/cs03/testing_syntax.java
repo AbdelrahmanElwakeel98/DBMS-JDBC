@@ -8,14 +8,25 @@ import java.util.regex.Pattern;
 public class testing_syntax {
 
 	public static void main(String[] args) {
-		String line = "  DELETE   From   table_name1   where kk=9" ;
-		 String pattern = "^\\s*(?i)(DELETE)\\s*(FROM)+\\s*+(\\w*+)\\s*+((?i)(WHERE)+\\s*+(\\w*+)\\s*+((?:[<|>|=]))\\s*+(\\d|(')(\\w*+)('))\\s*)*$";
-	      // Create a Pattern object
-	      Pattern r = Pattern.compile(pattern);
-	      // Now create matcher object.
-	      Matcher m = r.matcher(line);
-	      if (m.find()) {
-	      System.out.println(m.group(3));
+		String line = "  CREATE   TABLE   table_name1(column_name1 varchar , column_name2    int,  column_name3 varchar)       ";
+		String pattern ="^(?i)\\s*(?i)(CREATE)\\s*(TABLE)\\s*(\\w*+)\\s*+"
+	      		+ "(\\()\\s*(\\w+\\s*+(?i)(varchar|int)\\s*(,)\\s*)*(\\w+\\s*+(?i)(varchar|int)\\s*)"
+	      		+ "(\\))\\s*(;)?\\s*$";
+      // Create a Pattern object
+      Pattern r = Pattern.compile(pattern);
+      // Now create matcher object.
+      Matcher m = r.matcher(line);
+      if (m.find()) {
+    	  System.out.println(m.group(3));
+    	  String[] attr = line.trim().split("\\(");
+    	  String[] attr3 = attr[1].trim().split("\\)");
+    	  String[] attr1 = attr3[0].trim().split(",");
+
+    	  for (int i = 0; i < attr1.length; i++) {
+    		  String[] attr2 = attr1[i].trim().split("\\s+");
+
+		
+    	  }
  }
 	}
 
