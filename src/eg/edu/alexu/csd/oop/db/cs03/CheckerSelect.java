@@ -8,7 +8,7 @@ public class CheckerSelect {
 	private String tableName;
 	private ArrayList<String> selectedCols;
 	private ArrayList<String> namesOfCols; 
-	private ArrayList<Boolean> status;
+	private ArrayList<Boolean> status = new ArrayList<>();
 	private String colCondition;
 	private String order;
 	
