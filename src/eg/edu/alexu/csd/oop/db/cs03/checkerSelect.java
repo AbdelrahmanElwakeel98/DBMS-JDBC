@@ -3,7 +3,7 @@ package eg.edu.alexu.csd.oop.db.cs03;
 import java.io.File;
 import java.util.ArrayList;
 
-public class checkerSelect {
+public class checkerSelect { 
 	private String databaseName;
 	private String tableName;
 	private ArrayList<String> selectedCols;
