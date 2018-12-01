@@ -223,6 +223,16 @@ public class SelectTableConditional implements Command {
 			}
 			y = 0;
 		}
+		
+		for (int i = 0; i <this.selectedTable.length; i++) {
+			for (int j = 0; j < this.selectedTable[0].length; j++) {
+				if (this.selectedTable[i][j].toString().charAt(0) == '\'') {
+					continue;
+				} else {
+					this.selectedTable[i][j] = Integer.parseInt((String) this.selectedTable[i][j]);
+				}
+			}
+		}
 
 		return selectedTable;
 

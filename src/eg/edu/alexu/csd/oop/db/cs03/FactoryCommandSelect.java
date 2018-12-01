@@ -34,7 +34,7 @@ public class FactoryCommandSelect {
 
 			}
 		
-		case "selectFrom" :
+		case "select*from" :
 			if(col_name.equals(" ")) {
 				return detailsOfTable;
 			}else {

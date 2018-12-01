@@ -34,6 +34,11 @@ public class Save_table {
 	public void save () {
 		
 		File file = new File(databaseName +  System.getProperty("file.separator") + tableName + ".DTD");
+		File dir = new File (databaseName +  System.getProperty("file.separator") + tableName + ".xml");
+		
+		dir.delete();
+		dir.mkdirs();
+		
 		BufferedReader br;
 		int count = 0;
 		ArrayList<String> col_names = new ArrayList<String>();

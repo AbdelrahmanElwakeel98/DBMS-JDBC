@@ -2,6 +2,7 @@ package eg.edu.alexu.csd.oop.db.cs03;
 
 import java.io.File;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import eg.edu.alexu.csd.oop.db.Database;
 
@@ -12,13 +13,16 @@ public class IDatabase implements Database {
 	@Override
 	public String createDatabase(String databaseName, boolean dropIfExists) {
 		File dir = new File (databaseName);
-
+	
 		if (dir.exists() && dropIfExists) {
 			try {
 
 				this.databaseN = databaseName;
 
-				executeStructureQuery("DROP DATABASE" + " " + databaseName);
+				
+				boolean x = executeStructureQuery("DROP DATABASE" + " " + databaseName);
+				
+				System.out.println(x);
 
 				if (executeStructureQuery("CREATE DATABASE" + " " + databaseName)) {
 					return dir.getAbsolutePath();
@@ -70,16 +74,36 @@ public class IDatabase implements Database {
 		}
 
 
-	} 
+	}
 
 	@Override
 	public Object[][] executeQuery(String query) throws SQLException {
      parsingSelect parse = new parsingSelect(query);
-		
+
+     if (parse.validity()) {
+    	 CheckerSelect checker = new CheckerSelect(this.databaseN, parse.getTableName(), parse.getWhichOrder(),
+				 parse.getTableDetails(), new Dtdreader(this.databaseN,
+						parse.getTableName()).read(),parse.getConditionColumn());
+    	 if (checker.tableIfExist()) {
+    		 if (checker.colsIfExist()) {
+    			 FactoryCommandSelect fSelect = new FactoryCommandSelect(parse.getWhichOrder(), new Read_table(this.databaseN, parse.getTableName()).read_table(), parse.getConditionColumn(), parse.getConditionSign(),
+			parse.getConditionValue(), new Dtdreader(this.databaseN, parse.getTableName()).read(),parse.getTableDetails());
+    			 return fSelect.selecter();
+    		 } else {
+    			 throw new SQLException ("Invalid SelectedCols");
+    		 }
+    	 } else {
+    		 throw new SQLException ("Invalid Table");
+    	 }
+
+     } else {
+    	 throw new SQLException ("Invalid Query");
+     }
+
 		/*if(parse.validity()) {
-			
+
 			if(parse.conditonExist()) {
-				checkerSelect checker = new checkerSelect(this.databaseN, parse.getTableName(), 
+				checkerSelect checker = new checkerSelect(this.databaseN, parse.getTableName(),
 						 parse.getTableDetails(), new Dtdreader(this.databaseN,
 								parse.getTableName()).read(),parse.getConditionColumn());
 				if(checker.colOfConditionIfExist()) {
@@ -87,9 +111,9 @@ public class IDatabase implements Database {
 						if(parse.getWhichOrder()=="select") {
 						if (checker.colsIfExist()) {
 
-  
-							
-							
+
+
+
 						} else {
 							throw new SQLException ("Invalid SelectedCols");
 						}
@@ -102,17 +126,17 @@ public class IDatabase implements Database {
 					throw new SQLException ("Invalid Columnof the condition");
 				}
 			}else {
-				checkerSelect checker = new checkerSelect(this.databaseN, parse.getTableName(), 
+				checkerSelect checker = new checkerSelect(this.databaseN, parse.getTableName(),
 						 parse.getTableDetails(), new Dtdreader(this.databaseN,
 								parse.getTableName()).read());
-				
+
 					if (checker.tableIfExist()) {
 						if(parse.getWhichOrder()=="select") {
 						if (checker.colsIfExist()) {
 
-  
-							
-							
+
+
+
 						} else {
 							throw new SQLException ("Invalid SelectedCols");
 						}
@@ -120,13 +144,12 @@ public class IDatabase implements Database {
 					} else {
 						throw new SQLException ("Invalid Table");
 					}
-				
+
 			}
-			
+
 		}else {
 			throw new SQLException ("Invalid Query");
 		}*/
-		return null;
 	}
 
 	@Override
@@ -148,7 +171,7 @@ public class IDatabase implements Database {
 			}
 		} else {
 			throw new SQLException ("Invalid Query");
-		}         
+		}
 	}
 
 }

@@ -205,6 +205,7 @@ public class SanityTest {
 		Database db = (Database)TestRunner.getImplementationInstanceForInterface(Database.class);
 
 		try {
+			
 			createDatabase(db, "TestDB", true);
 
 			db.executeStructureQuery("CREATE TABLE table_name1(column_name1 varchar, column_name2 int, column_name3 varchar)");

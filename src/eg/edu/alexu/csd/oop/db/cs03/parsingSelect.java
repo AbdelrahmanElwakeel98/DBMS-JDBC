@@ -13,14 +13,14 @@ public class parsingSelect {
 	private String conditionSign;
 	private String conditionValue;
 	private int conditonExist;
-	ArrayList<String> col ;
+	private ArrayList<String> col ;
 	
 	public parsingSelect(String query) {
 		this.query = query;
-		tableName = null;
-		conditionColumn =null;
-		conditionSign =null;
-		conditionValue =null;
+		tableName = " ";
+		conditionColumn = " ";
+		conditionSign = " ";
+		conditionValue = " ";
 		conditonExist=0;
 		col = new ArrayList<>();
 	}
@@ -49,7 +49,7 @@ public class parsingSelect {
 	    	  String withoutS1 = null ;
 	    	  for (int i = 0; i < attr1.length; i++) { 
 	    		  withoutS1=attr1[i].replaceAll(" ", "");
-				  col.add(withoutS1);
+				  col.add(withoutS1.toLowerCase());
 	    	  }
 	    	  if(m.group(8)!=null) {
 	    		 conditonExist=1;
@@ -93,7 +93,7 @@ public class parsingSelect {
 	
 	
 	public String getTableName() {
-		return tableName;
+		return tableName.toLowerCase();
 	}
 	
 	public boolean conditonExist() {
@@ -106,7 +106,7 @@ public class parsingSelect {
 	}
 	
 	public String getConditionColumn() {
-		return conditionColumn;
+		return conditionColumn.toLowerCase();
 	}
 	
 	public String getConditionSign() {
@@ -114,7 +114,7 @@ public class parsingSelect {
 	}
 	
 	public String getConditionValue() {
-		return conditionValue;
+		return conditionValue.toLowerCase();
 	}
 	
 	public ArrayList<String> getTableDetails() {
