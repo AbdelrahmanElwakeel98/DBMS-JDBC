@@ -156,10 +156,12 @@ public class Update_table implements Command {
 
 		} else {
 			for (int i = 0; i < data.length; i++) {
+				update_count++;
 				for (int j = 0; j < arrayOfinsert.size(); j++) {
+					
 					for (int k = 0; k < data[0].length; k++) {
 						if (arrayOfinsert.get(j).getFieldNames().equals(col_names.get(k))) {
-							data[i][k] = arrayOfinsert.get(k).getDataTypes();
+							data[i][k] = arrayOfinsert.get(j).getDataTypes();
 						}
 					}
 
