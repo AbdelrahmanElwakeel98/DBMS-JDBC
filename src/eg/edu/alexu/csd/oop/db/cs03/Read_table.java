@@ -41,7 +41,6 @@ public class Read_table {
 			if (br.readLine() == null) {
 				return null;
 			} else {
-				System.out.println("d5l");
 				Document doc = dBuilder.parse(inputFile);
 				doc.getDocumentElement().normalize();
 				NodeList nList = doc.getElementsByTagName("row");
