@@ -84,7 +84,7 @@ public class Delete_table implements Command {
 					if (j == col_num) {
 						switch (sign) {
 						case "<":
-							if ((int) data[i][j] < Integer.parseInt(value)) {
+							if (Integer.parseInt(data[i][j].toString()) < Integer.parseInt(value)) {
 								count_delete++;
 								for (int k = 0; k < data[0].length; k++) {
 									flag[i][k] = true;
@@ -92,7 +92,7 @@ public class Delete_table implements Command {
 							}
 							break;
 						case ">":
-							if ((int) data[i][j] > Integer.parseInt(value)) {
+							if (Integer.parseInt(data[i][j].toString()) > Integer.parseInt(value)) {
 								count_delete++;
 								for (int k = 0; k < data[0].length; k++) {
 									flag[i][k] = true;
@@ -100,7 +100,7 @@ public class Delete_table implements Command {
 							}
 							break;
 						case "=":
-							if ((int) data[i][j] == Integer.parseInt(value)) {
+							if (Integer.parseInt(data[i][j].toString()) == Integer.parseInt(value)) {
 								count_delete++;
 								for (int k = 0; k < data[0].length; k++) {
 									flag[i][k] = true;
