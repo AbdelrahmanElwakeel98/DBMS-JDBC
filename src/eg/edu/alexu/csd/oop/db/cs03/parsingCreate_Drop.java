@@ -31,7 +31,7 @@ public class parsingCreate_Drop {
 		}
 	}
 
-    public boolean check1()	{
+    private boolean check1()	{
 	      String pattern = "^(?i)(CREATE)+(\\s*)+(?i)(DATABASE)+(\\s*)+((\\w+)|(\\w+([\\" + f + "]\\w+)+))\\s*$";
 	      // Create a Pattern object
 	      Pattern r = Pattern.compile(pattern);
@@ -47,7 +47,7 @@ public class parsingCreate_Drop {
 	    	  return false;
 	      }
 	}
-   public boolean check2()	{
+   private boolean check2()	{
 	      String pattern = "^(?i)(DROP)+(\\s*)+(?i)(DATABASE)+(\\s*)+((\\w+)|(\\w+([\\" + f + "]\\w+)+))\\s*$";
 	      // Create a Pattern object
 	      Pattern r = Pattern.compile(pattern);
@@ -64,7 +64,7 @@ public class parsingCreate_Drop {
 	    	  return false;
 	      }
 	}
-   public boolean check3()	{
+   private boolean check3()	{
 	      String pattern = "^(?i)(DROP)+(\\s*)+(?i)(table)+(\\s*)+((\\w+)|(\\w+([\\" + f + "]\\w+)+))\\s*$";
 	      // Create a Pattern object
 	      Pattern r = Pattern.compile(pattern);
@@ -81,7 +81,7 @@ public class parsingCreate_Drop {
 	      }
 	}
 
-   public boolean check4()	{
+   private boolean check4()	{
 	      String pattern ="^(?i)\\s*(CREATE)\\s*(TABLE)\\s*(\\w*+)\\s*+"
 		      		+ "(\\()\\s*(\\w+\\s*+(?i)(varchar|int)\\s*(,)\\s*)*(\\w+\\s*+(?i)(varchar|int)\\s*)"
 		      		+ "(\\))\\s*(;)?\\s*$";

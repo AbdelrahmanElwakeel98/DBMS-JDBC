@@ -33,7 +33,7 @@ public class parsingSelect {
 		} 
 	}
 	
-    public boolean check1()	{
+    private boolean check1()	{
     	 String pattern = "^\\s*(?i)(SELECT)\\s*+((\\w*+)\\s*+(,)+\\s*)*+(\\w*+)\\s*+"
     	 		+ "(?i)(FROM)\\s*+(\\w*+)\\s*+((WHERE)+\\s*+"
  		        + "(\\w*+)\\s*+((?:[<|>|=]))\\s*+(\\d)+\\s*)*$";
@@ -65,7 +65,7 @@ public class parsingSelect {
 	      }	
 	}
   
-    public boolean check2()	{
+    private boolean check2()	{
     	  String pattern = "^\\s*(?i)(SELECT)\\s*+(\\*)\\s*+(?i)(FROM)\\s*+(\\w*+)\\s*$";
 	      // Create a Pattern object
 	      Pattern r = Pattern.compile(pattern);
