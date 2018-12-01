@@ -58,7 +58,7 @@ public class test {
 		selectedCols.add("col3");
 		selectedCols.add("col2");
 		
-		Command c5 = new SelectTableConditional(o, namesOfCol, selectedCols, "col3", ">", "'a'", namesOfCol);
+		Command c5 = new SelectTableFrom(o, namesOfCol, "col3", ">", "'a'", namesOfCol);
 		
 		Object[][] o1 = (Object[][]) c5.execute();
 		
