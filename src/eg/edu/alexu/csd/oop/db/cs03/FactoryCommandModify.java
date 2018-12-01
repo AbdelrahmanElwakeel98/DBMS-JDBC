@@ -19,7 +19,7 @@ public class FactoryCommandModify {
 		this.databaseName = databaseName;
 		this.tableName = tableName;
 		this.arrayOfinsert = arrayOfinsert;
-		this.data = data;
+		this.data = dataString;
 		this.col_name = col_name;
 		this.sign = sign;
 		this.value = value;
