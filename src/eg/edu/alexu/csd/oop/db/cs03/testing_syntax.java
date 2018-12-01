@@ -8,19 +8,31 @@ import java.util.regex.Pattern;
 public class testing_syntax {
 
 	public static void main(String[] args) {
-
-		String line = "DELETE From table_name1  WHERe coLUmn_NAME2=4";
-		 String pattern = "^(?i)(DELETE FROM)+(\\s)+(\\w*+)\\s*+(WHERE)+\\s+(\\w*+)((?:[<|>|=]))(\\d|(')(\\w*+)('))$";
-	      // Create a Pattern object
-	      Pattern r = Pattern.compile(pattern);
-	      // Now create matcher object.
-	      Matcher m = r.matcher(line);
-	      if (m.find()) {
-
-	    	  System.out.println(m.group(4));
-
-
-	      }
+		 String line = "UPDATE table_name1 SET column_name1='11111111' ,dd='33' where mm =6" ;
+		   String pattern = "^\\s*+(?i)(UPDATE)+\\s*+(\\w*+)\\s*+(?i)(SET)+\\s*+((\\w*+)\\s*+(=)+\\s*+"
+		   		+ "(\\d|(')+(\\w*+)('))+\\s*+(,)\\s*)*+(\\w*+)\\s*+(=)+\\s*+(\\d|(')+(\\w*+)('))+\\s*+"
+		   		+ "((?i)(WHERE)+\\s*+(\\w*+)\\s*+((?:[<|>|=]))+\\s*+(\\d|(')(\\w*+)('))\\s*)*$";
+		      // Create a Pattern object
+		      Pattern r = Pattern.compile(pattern);
+		      // Now create matcher object.
+		      Matcher m = r.matcher(line);
+		      if (m.find()) {
+		    	  ArrayList<String> fieldNames = new ArrayList<>();
+		    	  ArrayList<String> valuesArgs = new ArrayList<>();
+		    	  String[] attr = line.trim().split("(?i)SET");
+		    	  String[] attr3 = attr[1].trim().split("(?i)WHERE");
+		    	  String[] attr1 = attr3[0].trim().split(","); 
+		    	  String withoutS1 = null ;
+		    	  String withoutS2 = null ;
+		    	  for (int i = 0; i < attr1.length; i++) {
+		    		  String[] attr2 = attr1[i].trim().split("=");
+		    		  withoutS1=attr2[0].replaceAll(" ", "");
+		    		  withoutS2=attr2[1].replaceAll(" ", "");
+		    		  
+}             
+		    	  System.out
+					.println(m.group(19));
+		    	  }
 
 }
 
@@ -165,50 +177,27 @@ public class testing_syntax {
 
    void update() {
 	   String line = "UPDATE table_name1 SET column_name1='11111111' WHERE coLUmn_NAME2=8" ;
-	   String pattern = "^(?i)(UPDATE)\\s+(\\w*+)\\s+(SET)+\\s+((\\w*+)(=)+(\\d|(')+(\\w*+)('))+(,)\\s)*+"
-		  	     	+ "(\\w*+)(=)+(\\d|(')+(\\w*+)('))\\s*+(WHERE)\\s+(\\w*+)((?:[<|>|=]))(\\d|(')(\\w*+)('))$";
+	   String pattern = "^\\s*+(?i)(UPDATE)+\\s*+(\\w*+)\\s*+(?i)(SET)+\\s*+((\\w*+)\\s*+(=)+\\s*+"
+	   		+ "(\\d|(')+(\\w*+)('))+\\s*+(,)\\s*)*+(\\w*+)\\s*+(=)+\\s*+(\\d|(')+(\\w*+)('))+\\s*+"
+	   		+ "(?i)(WHERE)+\\s*+(\\w*+)\\s*+((?:[<|>|=]))+\\s*+(\\d|(')(\\w*+)('))\\s*$";
 	      // Create a Pattern object
 	      Pattern r = Pattern.compile(pattern);
 	      // Now create matcher object.
 	      Matcher m = r.matcher(line);
 	      if (m.find()) {
+	    	 /* ArrayList<String> fieldNames = new ArrayList<>();
+	    	  ArrayList<String> valuesArgs = new ArrayList<>();
 	    	  ArrayList<String> fieldNames = new ArrayList<>();
 	    	  ArrayList<String> valuesArgs = new ArrayList<>();
-	    	  String[] spliter;
-	    	  String helper ;
-	          String[] attr = line.split(",");
-	          helper = null;
-	          spliter = new String[attr.length];
-	          for (int i = 0; i < attr.length; i ++) {
-	              String[] attributes = attr[i].split("=");
-	              if(i==0 && i!=attr.length-1) {
-	            	  helper = attributes[0].trim().toLowerCase();
-	            	  spliter=helper.trim().split("\\s");
-	            	  fieldNames.add(spliter[3].trim()) ;
-		              valuesArgs.add(attributes[1].trim());
-	              }
-	              else if(i==attr.length-1 && i!=0) {
-	            	  fieldNames.add(attributes[0].trim().toLowerCase());
-	            	  helper = attributes[1].trim();
-	            	  spliter=helper.trim().split("\\s");
-		              valuesArgs.add(spliter[0].trim());
-	              }
-	              else if(i==attr.length-1 && i==0) {
-	            	  helper = attributes[0].trim().toLowerCase();
-	            	  spliter=helper.trim().split("\\s");
-	            	  fieldNames.add(spliter[3].trim()) ;
-	            	  helper = attributes[1].trim();
-	            	  spliter=helper.trim().split("\\s");
-		              valuesArgs.add(spliter[0].trim());
-	              }
-	              else {
-	            	  fieldNames.add(attributes[0].trim().toLowerCase());
-		              valuesArgs.add(attributes[1].trim());
-	              }
-	          }
-
-	          System.out.println(fieldNames.get(0));
-	      }
-
+	    	  order = "update";
+	    	  String[] attr = this.query.trim().split("(?i)SET");
+	    	  String[] attr3 = attr[1].trim().split("(?i)WHERE");
+	    	  String[] attr1 = attr3[0].trim().split(","); 
+	    	  String withoutS1 = null ;
+	    	  String withoutS2 = null ;
+	    	  for (int i = 0; i < attr1.length; i++) {
+	    		  String[] attr2 = attr1[i].trim().split("=");
+	    		  withoutS1=attr2[0].replaceAll(" ", "");
+	    		  withoutS2=attr2[1].replaceAll(" ", "");*/
    }
-}
+}}
