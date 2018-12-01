@@ -46,18 +46,23 @@ public class CheckerExist {
 			return false;
 		}
 			
-		case "insert" : for (int i = 0; i < this.selectedCols.size(); i++) {
-			for (int j = 0; j < this.namesOfCols.size(); j++) {
-				if (this.selectedCols.get(i).getFieldNames().equals(this.namesOfCols.get(j))) {
-					status.add(true);
-				}
-			}
-		}
-		if (status.size() == this.namesOfCols.size()) {
+		case "insert" : if (this.selectedCols.get(0).getFieldNames() == null && this.selectedCols.get(0).getDataTypes() != null) {
 			return true;
 		} else {
-			return false;
+			for (int i = 0; i < this.selectedCols.size(); i++) {
+				for (int j = 0; j < this.namesOfCols.size(); j++) {
+					if (this.selectedCols.get(i).getFieldNames().equals(this.namesOfCols.get(j))) {
+						status.add(true);
+					}
+				}
+			}
+			if (status.size() == this.namesOfCols.size()) {
+				return true;
+			} else {
+				return false;
+			}
 		}
+			
 		
 		default : return true;
 		
