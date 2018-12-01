@@ -39,18 +39,40 @@ public class Delete_table implements Command {
 				col_num = i;
 			}
 		}
-		if (value.charAt(0) == '\'' && sign.equals("=")) {
+		if (value.charAt(0) == '\'') {
 
 			for (int i = 0; i < data.length; i++) {
 				for (int j = 0; j < data[0].length; j++) {
 					if (j == col_num) {
-						if (value.equals((String) data[i][j])) {
-							count_delete++;
-							for (int k = 0; k < data[0].length; k++) {
-								flag[i][k] = true;
+						switch (sign) {
+						case "=":
+							if (value.equals((String) data[i][j])) {
+								count_delete++;
+								for (int k = 0; k < data[0].length; k++) {
+									flag[i][k] = true;
+								}
 							}
+							break;
+						case "<":
+							if (value.equals((String) data[i][j])) {
+								count_delete++;
+								for (int k = 0; k < data[0].length; k++) {
+									flag[i][k] = true;
+								}
+							}
+							break;
+						case ">":
+							if (((String) data[i][j]).compareTo(value) < 0) {
+								count_delete++;
+								for (int k = 0; k < data[0].length; k++) {
+									flag[i][k] = true;
+								}
+							}
+							break;
 						}
+
 					}
+
 				}
 			}
 
