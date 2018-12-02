@@ -34,6 +34,20 @@ public class SelectTableConditional implements Command {
 	public Object execute() {
 
 		checker = new boolean[this.detailsOfTable.length][this.detailsOfTable[0].length];
+		
+		for (int i = 0; i < detailsOfTable.length; i ++) {
+			for (int j = 0; j < detailsOfTable[0].length; j++) {
+				System.out.println(detailsOfTable[i][j]);
+			}
+		}
+		
+
+		for (int i = 0; i < cols_name.size(); i ++) {
+				System.out.println(cols_name.get(i));
+			
+		}
+		
+		System.out.println(target);
 
 		switch (sign) {
 		case "=":
@@ -208,6 +222,12 @@ public class SelectTableConditional implements Command {
 
 		int x = 0, y = 0;
 		int flag = -1;
+		
+		for (int i = 0; i < checker.length; i ++) {
+			for (int j = 0; j < checker[0].length; j++) {
+				System.out.println(checker[i][j]);
+			}
+		}
 
 		for (int i = 0; i < checker.length; i++) {
 			for (int j = 0; j < checker[0].length; j++) {

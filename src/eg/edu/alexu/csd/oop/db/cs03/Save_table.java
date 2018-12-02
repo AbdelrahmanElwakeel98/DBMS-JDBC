@@ -37,7 +37,12 @@ public class Save_table {
 		File dir = new File (databaseName +  System.getProperty("file.separator") + tableName + ".xml");
 		
 		dir.delete();
-		dir.mkdirs();
+		try {
+			dir.createNewFile();
+		} catch (IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 		
 		BufferedReader br;
 		int count = 0;
@@ -61,7 +66,7 @@ public class Save_table {
 				count++;
 
 			}
-
+br.close();
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

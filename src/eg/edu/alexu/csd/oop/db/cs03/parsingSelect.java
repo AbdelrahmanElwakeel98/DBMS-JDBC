@@ -1,4 +1,4 @@
-package eg.edu.alexu.csd.oop.db.cs03;
+ package eg.edu.alexu.csd.oop.db.cs03;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -53,9 +53,9 @@ public class parsingSelect {
 	    	  }
 	    	  if(m.group(8)!=null) {
 	    		 conditonExist=1;
-	  		     conditionColumn = m.group(9);
-	  		     conditionSign = m.group(10);
-	  		     conditionValue = m.group(11);
+	  		     conditionColumn = m.group(10);
+	  		     conditionSign = m.group(11);
+	  		     conditionValue = m.group(12);
 	    	  }
 	          return true;
 	      }	

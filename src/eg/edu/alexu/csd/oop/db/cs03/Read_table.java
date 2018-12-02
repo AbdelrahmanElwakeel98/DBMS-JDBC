@@ -33,12 +33,12 @@ public class Read_table {
 		dtdreader = new Dtdreader(databaseName,tableName);
 		col_names = dtdreader.read();
 		try {
-			System.out.println();
 			File inputFile = new File(databaseName + System.getProperty("file.separator") + tableName + ".xml");
 			BufferedReader br = new BufferedReader(new FileReader(databaseName + System.getProperty("file.separator") + tableName + ".xml"));     
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			if (br.readLine() == null) {
+				br.close();
 				return null;
 			} else {
 				Document doc = dBuilder.parse(inputFile);
@@ -57,6 +57,7 @@ public class Read_table {
 						}
 					}
 				}
+				br.close();
 				return data;
 
 			}

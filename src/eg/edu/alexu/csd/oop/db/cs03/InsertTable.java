@@ -121,7 +121,7 @@ public class InsertTable implements Command {
 			File dir = new File(databaseName + System.getProperty("file.separator") + tableName + ".xml");
 
 			dir.delete();
-			dir.mkdirs();
+			dir.createNewFile();
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
 			DOMSource source = new DOMSource(doc);

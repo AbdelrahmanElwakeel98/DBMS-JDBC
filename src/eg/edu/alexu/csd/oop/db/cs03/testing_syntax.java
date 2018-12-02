@@ -8,25 +8,38 @@ import java.util.regex.Pattern;
 public class testing_syntax {
 
 	public static void main(String[] args) {
-		String line = "  CREATE   TABLE   table_name1(column_name1 varchar , column_name2    int,  column_name3 varchar)       ";
-		String pattern ="^(?i)\\s*(?i)(CREATE)\\s*(TABLE)\\s*(\\w*+)\\s*+"
-	      		+ "(\\()\\s*(\\w+\\s*+(?i)(varchar|int)\\s*(,)\\s*)*(\\w+\\s*+(?i)(varchar|int)\\s*)"
-	      		+ "(\\))\\s*(;)?\\s*$";
-      // Create a Pattern object
-      Pattern r = Pattern.compile(pattern);
-      // Now create matcher object.
-      Matcher m = r.matcher(line);
-      if (m.find()) {
-    	  System.out.println(m.group(3));
-    	  String[] attr = line.trim().split("\\(");
-    	  String[] attr3 = attr[1].trim().split("\\)");
-    	  String[] attr1 = attr3[0].trim().split(",");
-
-    	  for (int i = 0; i < attr1.length; i++) {
-    		  String[] attr2 = attr1[i].trim().split("\\s+");
-
-		
-    	  }
+		String line ="SELECT column_name1 FROM table_name13 WHERE coluMN_NAME2 < 5";
+		String pattern = "^\\s*(?i)(SELECT)\\s*+((\\w*+)\\s*+(,)+\\s*)*+(\\w*+)\\s*+(?i)(FROM)\\s*+(\\w*+)\\s*+"
+    	 		+ "((?i)(WHERE)+\\s*+(\\w*+)\\s*+((?:[<|>|=]))\\s*+(\\d)+\\s*)*$";
+	      // Create a Pattern object
+	      Pattern r = Pattern.compile(pattern);
+	      // Now create matcher object.
+	      Matcher m = r.matcher(line);
+	      if (m.find()) {
+	    	  
+	    	  String[] attr = line.trim().split("(?i)SELECT");
+	    	  String[] attr3 = attr[1].trim().split("(?i)FROM");
+	    	  String[] attr1 = attr3[0].trim().split(",");
+	    	  String withoutS1 = null ;
+	    	  for (int i = 0; i < attr1.length; i++) { 
+	    		  withoutS1=attr1[i].replaceAll(" ", "");
+	    	  }
+	    	  System.out.println(m.group(1));
+	    	  System.out.println(m.group(2));
+	    	  System.out.println(m.group(3));
+	    	  System.out.println(m.group(4));
+	    	  System.out.println(m.group(5));
+	    	  System.out.println(m.group(6));
+	    	  System.out.println(m.group(7));
+	    	  System.out.println(m.group(8));
+	    	  System.out.println(m.group(9));
+	    	  
+	    	  
+	    	  if(m.group(8)!=null) {
+                  //System.out.println(m.group(9));
+	  		      m.group(10);
+	  		       m.group(11);
+	    	  }
  }
 	}
 

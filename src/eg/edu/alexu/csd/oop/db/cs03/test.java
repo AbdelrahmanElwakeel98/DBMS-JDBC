@@ -31,21 +31,23 @@ public class test {
 		
 		
 		
-		Object[][] o = new Object[3][3];
+		Object[][] o = new Object[4][3];
 		
-		o[0][0] = "'1'";
-		o[0][1] = "'2'";
-		o[0][2] = "'a'";
+		o[0][0] = "'v1'";
+		o[0][1] = "4";
+		o[0][2] = "'v3'";
 		
-		o[1][0] = "'3'";
-		o[1][1] = "'4'";
-		o[1][2] = "'b'";
+		o[1][0] = "'v1'";
+		o[1][1] = "4";
+		o[1][2] = "'v3'";
 		
-		o[2][0] = "'5'";
-		o[2][1] = "'6'";
-		o[2][2] = "'c'";
+		o[2][0] = "'v2'";
+		o[2][1] = "5";
+		o[2][2] = "'v4'";
 		
-		
+		o[3][0] = "'v5'";
+		o[3][1] = "6";
+		o[3][2] = "'v6'";
 		
 		ArrayList<String> namesOfCol = new ArrayList<>();
 
@@ -55,10 +57,9 @@ public class test {
 		
 		ArrayList<String> selectedCols = new ArrayList<>();
 		
-		selectedCols.add("col3");
-		selectedCols.add("col2");
+		selectedCols.add("col1");
 		
-		Command c5 = new SelectTableFrom(o, namesOfCol, "col3", ">", "'a'", namesOfCol);
+		Command c5 = new SelectTableConditional(o, namesOfCol, selectedCols,"col2", "<", "5", namesOfCol);
 		
 		Object[][] o1 = (Object[][]) c5.execute();
 		
@@ -73,11 +74,11 @@ public class test {
 		
 		//CommandUpdate c4 = new InsertTable("PoliceStation", "NewTable", arraylist1);
 
-		c1.execute();
+		//c1.execute();
 		
-		Database db = new IDatabase();
+		//Database db = new IDatabase();
 		
-		db.executeStructureQuery("CREATE   TABLE   table_name1(column_name1 varchar , column_name2    int,  column_name3 varchar)       ");
+		//db.executeStructureQuery("CREATE   TABLE   table_name1(column_name1 varchar , column_name2    int,  column_name3 varchar)       ");
 		
 			
 		

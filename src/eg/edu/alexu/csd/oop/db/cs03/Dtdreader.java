@@ -41,6 +41,7 @@ public class Dtdreader {
 				count++;
 
 			}
+			br.close();
 			return col_names;
 
 		} catch (FileNotFoundException e1) {
